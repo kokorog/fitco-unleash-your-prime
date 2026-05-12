@@ -5,12 +5,12 @@ import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 
 const NAV = [
-  { to: "/features", label: "Features" },
-  { to: "/workouts", label: "Workouts" },
-  { to: "/nutrition", label: "Nutrition" },
-  { to: "/community", label: "Community" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/blog", label: "Blog" },
+  { to: "/features", label: "Функции" },
+  { to: "/pricing", label: "Цени" },
+  { to: "/community", label: "Общност" },
+  { to: "/about", label: "За нас" },
+  { to: "/faq", label: "ЧЗВ" },
+  { to: "/contact", label: "Контакти" },
 ] as const;
 
 export function Header() {
@@ -46,14 +46,14 @@ export function Header() {
         </nav>
         <div className="hidden items-center gap-2 lg:flex">
           <Button variant="ghost" size="sm" asChild>
-            <Link to="/contact">Sign in</Link>
+            <a href="#download">Изтегли</a>
           </Button>
           <Button size="sm" asChild className="bg-primary text-primary-foreground hover:bg-primary-glow shadow-[0_0_20px_oklch(0.86_0.24_142/0.4)]">
-            <Link to="/dashboard">Get started</Link>
+            <Link to="/pricing">Започни</Link>
           </Button>
         </div>
         <button
-          aria-label="Toggle menu"
+          aria-label="Меню"
           className="rounded-md p-2 lg:hidden"
           onClick={() => setOpen((v) => !v)}
         >
@@ -73,14 +73,9 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <div className="mt-2 flex gap-2">
-              <Button variant="outline" className="flex-1" asChild>
-                <Link to="/contact" onClick={() => setOpen(false)}>Sign in</Link>
-              </Button>
-              <Button className="flex-1 bg-primary text-primary-foreground hover:bg-primary-glow" asChild>
-                <Link to="/dashboard" onClick={() => setOpen(false)}>Get started</Link>
-              </Button>
-            </div>
+            <Button className="mt-2 bg-primary text-primary-foreground hover:bg-primary-glow" asChild>
+              <Link to="/pricing" onClick={() => setOpen(false)}>Започни</Link>
+            </Button>
           </div>
         </div>
       )}
