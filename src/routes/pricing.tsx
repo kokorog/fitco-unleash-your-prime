@@ -29,7 +29,7 @@ function PricingPage() {
       />
       <section className="mx-auto grid max-w-7xl gap-6 px-4 py-20 sm:px-6 lg:grid-cols-3 lg:px-8">
         {TIERS.map((t, i) => (
-          <div key={i} className={`relative rounded-2xl border p-8 ${t.featured ? "border-primary bg-card shadow-[0_0_60px_oklch(0.86_0.24_142/0.2)]" : "border-border bg-card"}`}>
+          <div key={i} className={`relative rounded-2xl border p-8 ${t.featured ? "border-primary bg-card glow-soft" : "border-border bg-card"}`}>
             {t.featured && (
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
                 Най-популярен

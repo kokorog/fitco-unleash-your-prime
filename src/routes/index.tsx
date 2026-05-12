@@ -63,7 +63,7 @@ function Hero() {
   return (
     <section ref={ref} className="relative overflow-hidden">
       <div className="absolute inset-0 grid-bg opacity-40" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.86_0.24_142/0.22),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.62_0.16_152/0.18),transparent_60%)]" />
       <motion.div style={{ y, opacity }} className="relative mx-auto grid max-w-7xl gap-12 px-4 pb-24 pt-28 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:px-8 lg:pt-36">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -82,7 +82,7 @@ function Hero() {
             FITCO е твоят AI треньор, дневник за хранене и фитнес общност — всичко в едно. Персонализирани планове, калории, прогрес и мотивация всеки ден.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary-glow shadow-[0_0_30px_oklch(0.86_0.24_142/0.5)]">
+            <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary-glow shadow-elevated hover:glow">
               <a href="#download">Изтегли безплатно <ArrowRight className="ml-2 h-4 w-4" /></a>
             </Button>
             <Button size="lg" variant="outline" asChild>
@@ -272,7 +272,7 @@ function Features() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.04 }}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-[0_0_40px_oklch(0.86_0.24_142/0.15)]"
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-elevated"
             >
               <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-primary/5 blur-2xl transition-all group-hover:bg-primary/15" />
               <div className="relative">
@@ -541,7 +541,7 @@ function PricingTeaser() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className={`relative rounded-2xl border p-8 ${t.featured ? "border-primary bg-card shadow-[0_0_60px_oklch(0.86_0.24_142/0.2)]" : "border-border bg-card"}`}
+              className={`relative rounded-2xl border p-8 ${t.featured ? "border-primary bg-card glow-soft" : "border-border bg-card"}`}
             >
               {t.featured && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
@@ -610,7 +610,7 @@ function Faq() {
 function Download() {
   return (
     <section id="download" className="relative overflow-hidden py-24">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,oklch(0.86_0.24_142/0.22),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,oklch(0.62_0.16_152/0.18),transparent_60%)]" />
       <div className="relative mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
         <div>
           <h2 className="text-4xl font-bold tracking-tight sm:text-6xl">

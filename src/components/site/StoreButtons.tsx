@@ -6,7 +6,7 @@ export function StoreButtons({ className = "" }: { className?: string }) {
       <a
         href="#"
         aria-label="Изтегли от App Store"
-        className="group flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-2.5 transition-all hover:border-primary/60 hover:shadow-[0_0_20px_oklch(0.86_0.24_142/0.25)]"
+        className="group flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-2.5 transition-all hover:border-primary/60 hover:shadow-soft"
       >
         <Apple className="h-7 w-7" />
         <div className="text-left leading-tight">
@@ -17,7 +17,7 @@ export function StoreButtons({ className = "" }: { className?: string }) {
       <a
         href="#"
         aria-label="Изтегли от Google Play"
-        className="group flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-2.5 transition-all hover:border-primary/60 hover:shadow-[0_0_20px_oklch(0.86_0.24_142/0.25)]"
+        className="group flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-2.5 transition-all hover:border-primary/60 hover:shadow-soft"
       >
         <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden>
           <path fill="oklch(0.86 0.24 142)" d="M3.6 2.3 14.5 12 3.6 21.7c-.4-.3-.6-.8-.6-1.3V3.6c0-.5.2-1 .6-1.3z"/>

@@ -20,7 +20,7 @@ export function PhoneFrame({
           {children}
         </div>
       </div>
-      <div className="pointer-events-none absolute -inset-6 -z-10 rounded-[3rem] bg-[radial-gradient(ellipse_at_center,oklch(0.86_0.24_142/0.25),transparent_70%)] blur-2xl" />
+      <div className="pointer-events-none absolute -inset-6 -z-10 rounded-[3rem] bg-[radial-gradient(ellipse_at_center,oklch(0.62_0.16_152/0.20),transparent_70%)] blur-2xl" />
     </div>
   );
 }

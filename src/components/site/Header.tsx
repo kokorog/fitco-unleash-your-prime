@@ -48,7 +48,7 @@ export function Header() {
           <Button variant="ghost" size="sm" asChild>
             <a href="#download">Изтегли</a>
           </Button>
-          <Button size="sm" asChild className="bg-primary text-primary-foreground hover:bg-primary-glow shadow-[0_0_20px_oklch(0.86_0.24_142/0.4)]">
+          <Button size="sm" asChild className="bg-primary text-primary-foreground hover:bg-primary-glow shadow-soft">
             <Link to="/pricing">Започни</Link>
           </Button>
         </div>
