@@ -76,11 +76,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "FITCO is the premium AI-powered fitness platform for training, nutrition, and community. Personalized workouts, calorie tracking, and a social fitness network." },
       { name: "author", content: "FITCO" },
       { property: "og:title", content: "FITCO — Train Smarter. Live Stronger." },
-      { property: "og:description", content: "Premium AI-powered fitness, nutrition, and community platform." },
+      { property: "og:description", content: "FITCO is the premium AI-powered fitness platform for training, nutrition, and community. Personalized workouts, calorie tracking, and a social fitness network." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@fitcoapp" },
       { name: "theme-color", content: "#0a0f0a" },
+      { name: "twitter:title", content: "FITCO — Train Smarter. Live Stronger." },
+      { name: "twitter:description", content: "FITCO is the premium AI-powered fitness platform for training, nutrition, and community. Personalized workouts, calorie tracking, and a social fitness network." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/748bb3f5-406a-45fd-a954-f9acc841dadd/id-preview-4317ed9c--f9d0bdd0-e616-42fe-8ea0-8136a00fde64.lovable.app-1778618493879.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/748bb3f5-406a-45fd-a954-f9acc841dadd/id-preview-4317ed9c--f9d0bdd0-e616-42fe-8ea0-8136a00fde64.lovable.app-1778618493879.png" },
     ],
     links: [
       {
