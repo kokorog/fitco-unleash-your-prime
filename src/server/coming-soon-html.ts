@@ -7,8 +7,7 @@ const HTML = `<!doctype html>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
-<meta name="referrer" content="no-referrer" />
+<meta name="robots" content="index, follow" />
 <meta name="theme-color" content="#05070a" />
 <title>FITCO — Coming Soon</title>
 <meta property="og:title" content="FITCO — Coming Soon" />
