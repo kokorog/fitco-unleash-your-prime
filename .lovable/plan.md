@@ -1,89 +1,107 @@
-Currently the stealth gate is client-side only (renders Coming Soon in React if `localStorage` flag is missing). That means the real route HTML, route tree, and assets are still served by SSR — a determined visitor can read them in DevTools or via direct fetch. This plan upgrades it to true server-side enforcement.
+# План: Разделяне на публичен и частен сайт
 
-Note on stack: this project runs on TanStack Start (Cloudflare Workers), not Next.js. The same pattern (edge middleware + signed cookie) applies; only the framework primitives differ.
+## Цел
 
-## What changes
+- `fitcoapp.com` и `www.fitcoapp.com` → само Coming Soon страница, без парола, видима за всички и за Google.
+- `private.fitcoapp.com` → реалният сайт, винаги защитен с паролата от `ACCESS_PASSWORD`.
+- Един Lovable проект, една публикация — разделението става на ниво hostname в server middleware. Без два деплоймънта, без дублиране на код.
 
-### 1. Server-side stealth middleware (the real lock)
-Add a request middleware in `src/start.ts` that runs on every SSR request and server function call:
+## Какво ще променя в кода
 
-- If `STEALTH_MODE === false` → pass through.
-- If the request has a valid `fitco_access` HTTP-only cookie → pass through.
-- If the path is on the allow-list (`/access`, `/api/public/access`, `/robots.txt`, static assets, framework chunks) → pass through.
-- Otherwise → return a fully-rendered Coming Soon HTML response with status 200 and security headers. The real route never runs, so no real markup, no route data, no leaked metadata.
+### 1. Host-aware stealth middleware (`src/start.ts`)
 
-This guarantees public visitors literally cannot fetch any other page's HTML, regardless of what URL they type.
-
-### 2. Password unlock via signed cookie
-Replace `localStorage` with a server-issued cookie:
-
-- New server route `POST /api/public/access` accepts `{ password }`, compares against `ACCESS_PASSWORD` (server env), and if correct sets `fitco_access` as `HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=7d`. Cookie value is HMAC-signed so it can't be forged.
-- `/access` page posts to it; on success, navigates to `/`.
-- Logout endpoint clears the cookie.
-
-Result: only people who know the password can ever request the real site, and the token can't be read or copied via JS.
-
-### 3. Secure response headers
-Apply on every response from the middleware:
-
-- `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex` (header-level, in addition to meta tags).
-- `Referrer-Policy: no-referrer`.
-- `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`.
-- `Cache-Control: no-store` for the Coming Soon response (so caches don't pin a public version after launch).
-- A minimal CSP for the Coming Soon page (it doesn't need third-party scripts).
-
-### 4. Robots + sitemap hygiene
-- Keep `public/robots.txt` as `Disallow: /` while in stealth.
-- Do not create a sitemap while in stealth (already absent — leave it).
-- When `STEALTH_MODE` flips off, robots.txt and sitemap can be updated in one commit.
-
-### 5. Route hygiene cleanup
-- Remove the existing client-side `StealthGate` from `__root.tsx` once server middleware is live (no longer needed; avoid double-rendering).
-- Keep the `/access` page (now talks to the API instead of localStorage).
-- The branded Coming Soon component stays — middleware reuses it via `renderToString` for the public response.
-
-### 6. One-toggle production switch
-Single flag in `src/lib/site-mode.ts`:
-```
-export const STEALTH_MODE = true; // flip to false at launch
-```
-When false: middleware short-circuits, robots/sitemap go public, noindex headers/meta drop. No other code touches required.
-
-## Folder layout after the change
+Текущата логика третира целия сайт като скрит. Ще я заменя с матрица по hostname:
 
 ```text
-src/
-  lib/
-    site-mode.ts            # STEALTH_MODE flag + cookie helpers
-  server/
-    stealth-middleware.ts   # request middleware (SSR gate)
-    access-cookie.ts        # HMAC sign/verify
-  components/
-    stealth/
-      ComingSoon.tsx        # branded public page (already exists)
-  routes/
-    access.tsx              # password entry UI
-    api/
-      public/
-        access.ts           # POST sets cookie, DELETE clears it
-public/
-  robots.txt                # Disallow: / while in stealth
+hostname                         поведение
+-------------------------------- ------------------------------------------
+fitcoapp.com / www.fitcoapp.com  ВИНАГИ връщай Coming Soon HTML за всеки път
+                                 (без /access, без real app, дори с cookie)
+private.fitcoapp.com             ако валидно cookie → пусни към real app
+                                 иначе → пренасочи към /access
+*.lovable.app (preview)          поведение като private (за да тестваме)
 ```
 
-## Secrets needed
+- `/api/public/access`, статични asset-и и `/robots.txt` остават достъпни и на двата хоста.
+- Cookie-то се сетва с `Domain=.fitcoapp.com` и `Secure; HttpOnly; SameSite=Lax`, за да важи само за поддомейна (никога не отключва публичния домейн, защото публичният домейн игнорира cookie-то по дизайн).
 
-Two server-only env vars (added via Lovable secrets, not committed):
-- `ACCESS_PASSWORD` — the dev password.
-- `ACCESS_COOKIE_SECRET` — random 32+ byte string used to HMAC-sign the cookie.
+### 2. Конфигурация на хостовете (`src/lib/site-mode.ts`)
 
-I'll prompt for both during implementation.
+Добавям централни константи:
 
-## What this does NOT cover
-- A user-facing email capture / waitlist on the Coming Soon page (can be added later).
-- Multi-user admin accounts — this is a single shared password, which matches the brief ("only I should access it"). Can be upgraded to Lovable Cloud auth later without changing the gate pattern.
+- `PUBLIC_HOSTS = ["fitcoapp.com", "www.fitcoapp.com"]`
+- `PRIVATE_HOSTS = ["private.fitcoapp.com"]`
+- `PREVIEW_HOST_SUFFIX = ".lovable.app"` (третира се като private)
+- helper `resolveHostMode(hostname)` → `"public" | "private"`
 
-## Confirm before I build
+Премахвам глобалния `STEALTH_MODE` toggle — режимът вече се определя от hostname.
 
-1. Replace the current client-side gate with the server-side middleware approach above? (recommended — current setup leaks HTML.)
-2. OK to use Lovable secrets for `ACCESS_PASSWORD` and `ACCESS_COOKIE_SECRET`? I'll ask for the password value when implementing; the cookie secret I'll generate.
-3. Keep the existing Coming Soon visual design as-is, or do you want a refresh pass?
+### 3. Coming Soon страница (`src/server/coming-soon-html.ts`)
+
+- Премахвам долния линк `private access` — публичният домейн не трябва да подсказва, че има скрит сайт.
+- Email `support@fitcoapp.com`, таймер 10:15:00 с reset при reload, текст „Специалната оферта изтича след" — вече е така, само потвърждавам.
+- Добавям canonical link към `https://fitcoapp.com/` и пълна OG/Twitter мета група за по-добро споделяне.
+
+### 4. Access поток (`src/routes/access.tsx` + `src/routes/api/public/access.ts`)
+
+- `/access` се показва САМО когато hostname е private. Ако някой го отвори на `fitcoapp.com`, middleware-ът връща Coming Soon.
+- При успешна парола cookie се издава с `Domain=.fitcoapp.com` (а в preview — без Domain атрибут, защото `lovable.app` е публичен суфикс и браузърите блокират cross-host cookies).
+- След успех redirect към `/` на същия хост (private).
+
+### 5. Logout / Изход
+
+Добавям бутон „Изход" в Header-а (само когато има активно cookie), който чисти cookie-то през `DELETE /api/public/access` и връща `/access`.
+
+### 6. Robots & SEO
+
+- `public/robots.txt`: позволи индексиране на root, забрани `/access`, `/api/`. Това ще се сервира от двата хоста, но Google ще индексира само това, което вижда — а на `private.fitcoapp.com` Google няма да види нищо освен `/access`.
+- На private hostname добавям `X-Robots-Tag: noindex, nofollow` header за всички отговори.
+
+## DNS настройка (твоята част)
+
+След като обновя кода, направи следното:
+
+1. **В Lovable**: Project Settings → Domains → **Connect Domain** → въведи `private.fitcoapp.com`.
+2. Lovable ще покаже DNS запис за добавяне. Отиди при registrar-а (където държиш `fitcoapp.com`) и добави:
+
+   ```text
+   Type: A
+   Name: private
+   Value: 185.158.133.1
+   TTL: Auto (или 3600)
+   ```
+
+   Плюс TXT записа за верификация, който Lovable ще ти даде:
+
+   ```text
+   Type: TXT
+   Name: _lovable.private  (или както Lovable посочи)
+   Value: lovable_verify=...
+   ```
+
+3. Изчакай DNS propagation (обикновено 5–30 минути, до 72 часа в краен случай). Lovable автоматично ще издаде SSL сертификат.
+4. `fitcoapp.com` и `www.fitcoapp.com` остават с настоящите си записи — няма промяна.
+
+**Важно:** Сегашният домейн `fitcoapp.com` остава прикачен към същия проект. И трите хоста (root, www, private) сочат към една публикация; middleware-ът ги диференцира по `Host` header.
+
+## Технически детайли (за справка)
+
+- TanStack Start request middleware има достъп до `request.url`, от което вадя `hostname`. Това работи и в Cloudflare Worker runtime-а.
+- Cookie domain `.fitcoapp.com` е разрешен за поддомейн на регистриран домейн (не е публичен суфикс). За `*.lovable.app` оставяме без Domain (host-only cookie).
+- Coming Soon HTML остава self-contained (без JS bundle), което гарантира че публичният домейн е изключително бърз и не leak-ва никаква информация за частния app.
+
+## Какво НЕ променям
+
+- Дизайна на Coming Soon страницата (вече е финализиран).
+- Парола / `ACCESS_PASSWORD` / `ACCESS_COOKIE_SECRET` — остават както са.
+- Структурата на реалния сайт (`/`, `/features`, `/pricing`, etc.) — те просто стават достъпни само на `private.fitcoapp.com`.
+
+## След имплементацията
+
+1. Аз ще ти дам конкретните DNS записи отново (от Lovable UI).
+2. Ти добавяш поддомейна и чакаш SSL.
+3. Тествай:
+   - `https://fitcoapp.com` → Coming Soon (без `/access` линк).
+   - `https://private.fitcoapp.com` → пренасочва към `/access`.
+   - Въвеждаш парола → отключва пълния сайт.
+   - Refresh-ваш `fitcoapp.com` → пак Coming Soon (cookie няма ефект там).

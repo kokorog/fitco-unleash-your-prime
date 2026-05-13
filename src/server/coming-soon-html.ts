@@ -286,7 +286,7 @@ const HTML = `<!doctype html>
   <footer>
     <div class="row">
       <span>© <span id="y"></span> FITCO. All rights reserved.</span>
-      <span>contact: support@fitcoapp.com · <a class="access-link" href="/access">private access</a></span>
+      <span>contact: support@fitcoapp.com</span>
     </div>
   </footer>
 
