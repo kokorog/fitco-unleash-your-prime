@@ -94,6 +94,7 @@ export function parseCookie(
 export interface AccessCookieOptions {
   maxAgeSeconds?: number;
   secure?: boolean;
+  domain?: string;
 }
 
 export function buildSetCookie(
@@ -107,13 +108,23 @@ export function buildSetCookie(
     `${name}=${encodeURIComponent(value)}`,
     "Path=/",
     "HttpOnly",
-    "SameSite=Strict",
+    "SameSite=Lax",
     `Max-Age=${maxAge}`,
   ];
+  if (opts.domain) parts.push(`Domain=${opts.domain}`);
   if (secure) parts.push("Secure");
   return parts.join("; ");
 }
 
-export function buildClearCookie(name = "fitco_access"): string {
-  return `${name}=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0; Secure`;
+export function buildClearCookie(name = "fitco_access", domain?: string): string {
+  const parts = [
+    `${name}=`,
+    "Path=/",
+    "HttpOnly",
+    "SameSite=Lax",
+    "Max-Age=0",
+    "Secure",
+  ];
+  if (domain) parts.push(`Domain=${domain}`);
+  return parts.join("; ");
 }
