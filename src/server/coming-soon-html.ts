@@ -259,11 +259,13 @@ const HTML = `<!doctype html>
     <p class="lead">Something powerful is being crafted. A new standard for movement, performance and discipline — designed in silence.</p>
 
     <div class="offer" role="timer" aria-live="polite">
-      <span class="offer-label"><i></i>Специалната оферта изтича след</span>
+      <span class="offer-label"><i></i>Живей смело</span>
       <div class="timer">
-        <div class="unit"><span class="num" id="t-h">10</span><span class="lbl">часа</span></div>
+        <div class="unit"><span class="num" id="t-d">00</span><span class="lbl">дни</span></div>
         <span class="sep">:</span>
-        <div class="unit"><span class="num" id="t-m">15</span><span class="lbl">минути</span></div>
+        <div class="unit"><span class="num" id="t-h">00</span><span class="lbl">часа</span></div>
+        <span class="sep">:</span>
+        <div class="unit"><span class="num" id="t-m">00</span><span class="lbl">минути</span></div>
         <span class="sep">:</span>
         <div class="unit"><span class="num" id="t-s">00</span><span class="lbl">секунди</span></div>
       </div>
@@ -293,20 +295,22 @@ const HTML = `<!doctype html>
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
   <script>
     (function(){
-      var total = 10*3600 + 15*60; // 10:15:00 — resets every page load
+      var target = new Date('2026-08-07T00:00:00+03:00').getTime();
+      var d = document.getElementById('t-d');
       var h = document.getElementById('t-h');
       var m = document.getElementById('t-m');
       var s = document.getElementById('t-s');
       var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
       function tick(){
-        if (total < 0) total = 0;
-        var hh = Math.floor(total / 3600);
-        var mm = Math.floor((total % 3600) / 60);
-        var ss = total % 60;
+        var diff = Math.max(0, Math.floor((target - Date.now()) / 1000));
+        var dd = Math.floor(diff / 86400);
+        var hh = Math.floor((diff % 86400) / 3600);
+        var mm = Math.floor((diff % 3600) / 60);
+        var ss = diff % 60;
+        d.textContent = pad(dd);
         h.textContent = pad(hh);
         m.textContent = pad(mm);
         s.textContent = pad(ss);
-        if (total > 0) total -= 1;
       }
       tick();
       setInterval(tick, 1000);
