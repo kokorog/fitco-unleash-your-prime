@@ -34,22 +34,15 @@ const stealthMiddleware = createMiddleware().server(async ({ next, request }) =>
   }
 
   // PRIVATE host: gate the real app behind the access cookie. /access and
-  // assets are reachable so the visitor can unlock.
-  if (isPrivateUnauthPath(url.pathname)) {
-    const res = await next();
-    res.headers.set("X-Robots-Tag", "noindex, nofollow");
-    return res;
-  }
+  // assets are reachable so the visitor can unlock. Robots noindex is
+  // applied via per-route meta (see __root.tsx).
+  if (isPrivateUnauthPath(url.pathname)) return next();
 
   const secret = process.env.ACCESS_COOKIE_SECRET;
   if (secret) {
     const token = parseCookie(request.headers.get("cookie"), ACCESS_COOKIE_NAME);
     const payload = await verifyAccessToken(token, secret);
-    if (payload) {
-      const res = await next();
-      res.headers.set("X-Robots-Tag", "noindex, nofollow");
-      return res;
-    }
+    if (payload) return next();
   }
 
   // No valid cookie on a private host → redirect to /access.
@@ -58,7 +51,6 @@ const stealthMiddleware = createMiddleware().server(async ({ next, request }) =>
     headers: {
       Location: "/access",
       "Cache-Control": "no-store",
-      "X-Robots-Tag": "noindex, nofollow",
       ...SECURITY_HEADERS,
     },
   });
