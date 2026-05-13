@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { StealthGate } from "@/components/stealth/StealthGate";
+import { STEALTH_MODE } from "@/lib/site-mode";
 
 function NotFoundComponent() {
   return (
@@ -72,17 +74,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "FITCO — Train Smarter. Live Stronger." },
-      { name: "description", content: "FITCO is the premium AI-powered fitness platform for training, nutrition, and community. Personalized workouts, calorie tracking, and a social fitness network." },
+      { title: STEALTH_MODE ? "FITCO — Coming Soon" : "FITCO — Train Smarter. Live Stronger." },
+      { name: "description", content: STEALTH_MODE ? "Something powerful is being crafted." : "FITCO is the premium AI-powered fitness platform for training, nutrition, and community." },
+      ...(STEALTH_MODE ? [{ name: "robots", content: "noindex, nofollow, noarchive, nosnippet, noimageindex" }] : []),
       { name: "author", content: "FITCO" },
-      { property: "og:title", content: "FITCO — Train Smarter. Live Stronger." },
-      { property: "og:description", content: "FITCO is the premium AI-powered fitness platform for training, nutrition, and community. Personalized workouts, calorie tracking, and a social fitness network." },
+      { property: "og:title", content: STEALTH_MODE ? "FITCO — Coming Soon" : "FITCO — Train Smarter. Live Stronger." },
+      { property: "og:description", content: STEALTH_MODE ? "Something powerful is being crafted." : "FITCO is the premium AI-powered fitness platform for training, nutrition, and community." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@fitcoapp" },
       { name: "theme-color", content: "#0a0f0a" },
-      { name: "twitter:title", content: "FITCO — Train Smarter. Live Stronger." },
-      { name: "twitter:description", content: "FITCO is the premium AI-powered fitness platform for training, nutrition, and community. Personalized workouts, calorie tracking, and a social fitness network." },
+      { name: "twitter:title", content: STEALTH_MODE ? "FITCO — Coming Soon" : "FITCO — Train Smarter. Live Stronger." },
+      { name: "twitter:description", content: STEALTH_MODE ? "Something powerful is being crafted." : "FITCO is the premium AI-powered fitness platform for training, nutrition, and community." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/748bb3f5-406a-45fd-a954-f9acc841dadd/id-preview-4317ed9c--f9d0bdd0-e616-42fe-8ea0-8136a00fde64.lovable.app-1778618493879.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/748bb3f5-406a-45fd-a954-f9acc841dadd/id-preview-4317ed9c--f9d0bdd0-e616-42fe-8ea0-8136a00fde64.lovable.app-1778618493879.png" },
     ],
@@ -121,7 +124,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <StealthGate>
+        <Outlet />
+      </StealthGate>
     </QueryClientProvider>
   );
 }
