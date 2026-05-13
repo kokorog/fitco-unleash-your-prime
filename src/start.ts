@@ -10,7 +10,6 @@ import { parseCookie, verifyAccessToken } from "./server/access-cookie";
 import { getComingSoonHtml } from "./server/coming-soon-html";
 
 const SECURITY_HEADERS: Record<string, string> = {
-  "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet, noimageindex",
   "Referrer-Policy": "no-referrer",
   "X-Frame-Options": "DENY",
   "X-Content-Type-Options": "nosniff",

@@ -31,7 +31,7 @@ export function Footer() {
           <FooterCol title="Поддръжка" links={[
             { to: "/contact", label: "Контакти" },
             { to: "/faq", label: "Често задавани въпроси" },
-            { to: "/contact", label: "support@fitco.app" },
+            { to: "/contact", label: "support@fitcoapp.com" },
           ]} />
           <FooterCol title="Право" links={[
             { to: "/privacy", label: "Политика за поверителност" },
@@ -41,7 +41,7 @@ export function Footer() {
         </div>
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-8 text-xs text-muted-foreground sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} FITCO. Всички права запазени. GDPR & ЕС съвместимост.</p>
-          <p>info@fitcoapp.com · support@fitco.app · fitcoapp.com</p>
+          <p>support@fitcoapp.com · support@fitcoapp.com · fitcoapp.com</p>
         </div>
       </div>
     </footer>

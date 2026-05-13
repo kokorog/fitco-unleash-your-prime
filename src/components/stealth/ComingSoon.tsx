@@ -128,7 +128,7 @@ export function ComingSoon() {
       <footer className="relative z-10 mx-auto max-w-6xl px-6 pb-8">
         <div className="flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-[11px] uppercase tracking-[0.25em] text-white/40 sm:flex-row">
           <span>© {new Date().getFullYear()} FITCO. All rights reserved.</span>
-          <span>contact: hello@fitcoapp.com</span>
+          <span>contact: support@fitcoapp.com</span>
         </div>
       </footer>
 

@@ -7,8 +7,7 @@ const HTML = `<!doctype html>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
-<meta name="referrer" content="no-referrer" />
+<meta name="robots" content="index, follow" />
 <meta name="theme-color" content="#05070a" />
 <title>FITCO — Coming Soon</title>
 <meta property="og:title" content="FITCO — Coming Soon" />
@@ -137,6 +136,60 @@ const HTML = `<!doctype html>
     text-wrap: balance;
   }
   @media (min-width: 640px) { p.lead { font-size: 1.125rem; } }
+  .offer {
+    margin-top: 2.5rem;
+    display: flex; flex-direction: column; align-items: center; gap: 0.875rem;
+  }
+  .offer-label {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.6875rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.55);
+  }
+  .offer-label i {
+    width: 0.375rem; height: 0.375rem; border-radius: 9999px; background: #f87171;
+    box-shadow: 0 0 12px rgba(248,113,113,0.8);
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  .timer {
+    display: inline-flex; align-items: stretch; gap: 0.5rem;
+    padding: 0.875rem 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    backdrop-filter: blur(14px);
+    box-shadow: 0 20px 60px -20px oklch(0.62 0.16 152 / 0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  .timer .unit {
+    display: flex; flex-direction: column; align-items: center;
+    min-width: 3.75rem;
+  }
+  .timer .num {
+    font-family: "Space Grotesk", "Inter", sans-serif;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    line-height: 1;
+    background: linear-gradient(180deg, #fff, rgba(255,255,255,0.55));
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    letter-spacing: -0.02em;
+  }
+  .timer .lbl {
+    margin-top: 0.5rem;
+    font-size: 0.5625rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.45);
+  }
+  .timer .sep {
+    font-family: "Space Grotesk", "Inter", sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 4.5vw, 2.25rem);
+    line-height: 1;
+    color: rgba(255,255,255,0.25);
+    align-self: flex-start;
+    padding-top: 0.15em;
+  }
   .divider {
     margin-top: 3rem;
     display: flex; align-items: center; gap: 0.75rem;
@@ -205,6 +258,17 @@ const HTML = `<!doctype html>
     </h1>
     <p class="lead">Something powerful is being crafted. A new standard for movement, performance and discipline — designed in silence.</p>
 
+    <div class="offer" role="timer" aria-live="polite">
+      <span class="offer-label"><i></i>Специалната оферта изтича след</span>
+      <div class="timer">
+        <div class="unit"><span class="num" id="t-h">10</span><span class="lbl">часа</span></div>
+        <span class="sep">:</span>
+        <div class="unit"><span class="num" id="t-m">15</span><span class="lbl">минути</span></div>
+        <span class="sep">:</span>
+        <div class="unit"><span class="num" id="t-s">00</span><span class="lbl">секунди</span></div>
+      </div>
+    </div>
+
     <div class="divider">
       <div class="line"></div>
       <span>FITCO ⁄ STEALTH</span>
@@ -222,11 +286,32 @@ const HTML = `<!doctype html>
   <footer>
     <div class="row">
       <span>© <span id="y"></span> FITCO. All rights reserved.</span>
-      <span>contact: hello@fitcoapp.com · <a class="access-link" href="/access">private access</a></span>
+      <span>contact: support@fitcoapp.com · <a class="access-link" href="/access">private access</a></span>
     </div>
   </footer>
 
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script>
+    (function(){
+      var total = 10*3600 + 15*60; // 10:15:00 — resets every page load
+      var h = document.getElementById('t-h');
+      var m = document.getElementById('t-m');
+      var s = document.getElementById('t-s');
+      var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
+      function tick(){
+        if (total < 0) total = 0;
+        var hh = Math.floor(total / 3600);
+        var mm = Math.floor((total % 3600) / 60);
+        var ss = total % 60;
+        h.textContent = pad(hh);
+        m.textContent = pad(mm);
+        s.textContent = pad(ss);
+        if (total > 0) total -= 1;
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
 </body>
 </html>`;
 
