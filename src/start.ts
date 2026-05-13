@@ -3,8 +3,9 @@ import { createStart, createMiddleware } from "@tanstack/react-start";
 import { renderErrorPage } from "./lib/error-page";
 import {
   ACCESS_COOKIE_NAME,
-  STEALTH_MODE,
-  isStealthAllowedPath,
+  isPrivateUnauthPath,
+  isPublicPassthroughPath,
+  resolveHostMode,
 } from "./lib/site-mode";
 import { parseCookie, verifyAccessToken } from "./server/access-cookie";
 import { getComingSoonHtml } from "./server/coming-soon-html";
@@ -16,23 +17,48 @@ const SECURITY_HEADERS: Record<string, string> = {
 };
 
 const stealthMiddleware = createMiddleware().server(async ({ next, request }) => {
-  if (!STEALTH_MODE) return next();
-
   const url = new URL(request.url);
-  if (isStealthAllowedPath(url.pathname)) return next();
+  const mode = resolveHostMode(url.hostname);
+
+  // PUBLIC host (fitcoapp.com / www.fitcoapp.com): always Coming Soon.
+  if (mode === "public") {
+    if (isPublicPassthroughPath(url.pathname)) return next();
+    return new Response(getComingSoonHtml(), {
+      status: 200,
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        ...SECURITY_HEADERS,
+      },
+    });
+  }
+
+  // PRIVATE host: gate the real app behind the access cookie. /access and
+  // assets are reachable so the visitor can unlock.
+  if (isPrivateUnauthPath(url.pathname)) {
+    const res = await next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return res;
+  }
 
   const secret = process.env.ACCESS_COOKIE_SECRET;
   if (secret) {
     const token = parseCookie(request.headers.get("cookie"), ACCESS_COOKIE_NAME);
     const payload = await verifyAccessToken(token, secret);
-    if (payload) return next();
+    if (payload) {
+      const res = await next();
+      res.headers.set("X-Robots-Tag", "noindex, nofollow");
+      return res;
+    }
   }
 
-  return new Response(getComingSoonHtml(), {
-    status: 200,
+  // No valid cookie on a private host → redirect to /access.
+  return new Response(null, {
+    status: 302,
     headers: {
-      "Content-Type": "text/html; charset=utf-8",
-      "Cache-Control": "no-store, no-cache, must-revalidate",
+      Location: "/access",
+      "Cache-Control": "no-store",
+      "X-Robots-Tag": "noindex, nofollow",
       ...SECURITY_HEADERS,
     },
   });
