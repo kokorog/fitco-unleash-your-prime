@@ -9,7 +9,6 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
-import { StealthGate } from "@/components/stealth/StealthGate";
 import { STEALTH_MODE } from "@/lib/site-mode";
 
 function NotFoundComponent() {
@@ -124,9 +123,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <StealthGate>
-        <Outlet />
-      </StealthGate>
+      <Outlet />
     </QueryClientProvider>
   );
 }

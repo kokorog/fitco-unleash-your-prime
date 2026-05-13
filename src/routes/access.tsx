@@ -1,11 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
-import {
-  ACCESS_PASSWORD,
-  isStealthUnlockedClient,
-  lockStealth,
-  unlockStealth,
-} from "@/lib/site-mode";
+import { useState, type FormEvent } from "react";
 
 export const Route = createFileRoute("/access")({
   head: () => ({
@@ -21,28 +15,40 @@ function AccessPage() {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [unlocked, setUnlocked] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    setUnlocked(isStealthUnlockedClient());
-  }, []);
-
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (password === ACCESS_PASSWORD) {
-      unlockStealth();
-      setUnlocked(true);
-      setError("");
-      navigate({ to: "/" });
-    } else {
+    setSubmitting(true);
+    setError("");
+    try {
+      const res = await fetch("/api/public/access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+        credentials: "same-origin",
+      });
+      if (res.ok) {
+        // Hard navigation so the SSR pass sees the new cookie.
+        window.location.assign("/");
+        return;
+      }
       setError("Невалиден код за достъп.");
+    } catch {
+      setError("Грешка при свързване. Опитай отново.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  const onLock = () => {
-    lockStealth();
-    setUnlocked(false);
-    setPassword("");
+  const onLock = async () => {
+    try {
+      await fetch("/api/public/access", {
+        method: "DELETE",
+        credentials: "same-origin",
+      });
+    } catch {}
+    window.location.assign("/access");
   };
 
   return (
@@ -82,47 +88,31 @@ function AccessPage() {
             Този сайт е в режим стелт. Въведи код за достъп, за да продължиш.
           </p>
 
-          {unlocked ? (
-            <div className="mt-6 space-y-3">
-              <div className="rounded-lg border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">
-                Достъпът е разрешен на това устройство.
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => navigate({ to: "/" })}
-                  className="flex-1 rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-white/90"
-                >
-                  Към сайта
-                </button>
-                <button
-                  onClick={onLock}
-                  className="rounded-lg border border-white/15 px-4 py-2.5 text-sm text-white/80 transition hover:bg-white/5"
-                >
-                  Заключи
-                </button>
-              </div>
-            </div>
-          ) : (
-            <form onSubmit={onSubmit} className="mt-6 space-y-3">
-              <input
-                type="password"
-                autoFocus
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Код за достъп"
-                className="w-full rounded-lg border border-white/15 bg-black/30 px-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none transition focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20"
-              />
-              {error && (
-                <p className="text-xs text-red-300">{error}</p>
-              )}
-              <button
-                type="submit"
-                className="w-full rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-white/90"
-              >
-                Влез
-              </button>
-            </form>
-          )}
+          <form onSubmit={onSubmit} className="mt-6 space-y-3">
+            <input
+              type="password"
+              autoFocus
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Код за достъп"
+              className="w-full rounded-lg border border-white/15 bg-black/30 px-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none transition focus:border-emerald-400/60 focus:ring-2 focus:ring-emerald-400/20"
+            />
+            {error && <p className="text-xs text-red-300">{error}</p>}
+            <button
+              type="submit"
+              disabled={submitting || password.length === 0}
+              className="w-full rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-black transition hover:bg-white/90 disabled:opacity-50"
+            >
+              {submitting ? "Проверка…" : "Влез"}
+            </button>
+          </form>
+
+          <button
+            onClick={onLock}
+            className="mt-4 w-full text-center text-[11px] uppercase tracking-[0.25em] text-white/40 transition hover:text-white/70"
+          >
+            Заключи това устройство
+          </button>
         </div>
 
         <p className="mt-6 text-center text-[10px] uppercase tracking-[0.3em] text-white/30">
