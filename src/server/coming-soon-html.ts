@@ -259,7 +259,7 @@ const HTML = `<!doctype html>
     <p class="lead">Something powerful is being crafted. A new standard for movement, performance and discipline — designed in silence.</p>
 
     <div class="offer" role="timer" aria-live="polite">
-      <span class="offer-label"><i></i>Живей смело</span>
+        <span class="offer-label"><i></i>You found it before the world did.</span>
       <div class="timer">
         <div class="unit"><span class="num" id="t-d">00</span><span class="lbl">дни</span></div>
         <span class="sep">:</span>
