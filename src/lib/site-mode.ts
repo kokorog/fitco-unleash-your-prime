@@ -1,33 +1,34 @@
-// FITCO — site visibility mode
-// Toggle STEALTH_MODE to false when ready to launch publicly.
+// FITCO — site visibility mode.
+// Single toggle: set to false when launching publicly.
+// When true, all SSR routes are blocked behind the server-side stealth
+// middleware in src/start.ts. Only requests with a valid signed access
+// cookie (issued by /api/public/access) reach the real app.
 export const STEALTH_MODE = true;
 
-// Access password for dev/admin preview while in stealth.
-// Visit /access and enter this password to unlock the real site on this device.
-// NOTE: This is a soft client-side gate — do not rely on it for protecting
-// truly secret data. Keep sensitive logic on the server / behind auth.
-export const ACCESS_PASSWORD = "fitco-dev-2026";
+// Cookie name carrying the HMAC-signed access token.
+export const ACCESS_COOKIE_NAME = "fitco_access";
 
-export const ACCESS_STORAGE_KEY = "fitco-access-granted";
-export const ACCESS_TOKEN = "granted";
+// Paths that remain reachable while in stealth mode (so admins can unlock).
+export const STEALTH_ALLOWED_PATHS = new Set<string>([
+  "/access",
+  "/api/public/access",
+  "/robots.txt",
+  "/favicon.ico",
+]);
 
-export function isStealthUnlockedClient(): boolean {
-  if (typeof window === "undefined") return false;
-  try {
-    return window.localStorage.getItem(ACCESS_STORAGE_KEY) === ACCESS_TOKEN;
-  } catch {
-    return false;
-  }
-}
+// Path prefixes that remain reachable (Vite assets, framework chunks, fonts).
+export const STEALTH_ALLOWED_PREFIXES = [
+  "/_build/",
+  "/assets/",
+  "/@vite/",
+  "/@fs/",
+  "/@id/",
+  "/__tanstack/",
+  "/node_modules/",
+  "/src/",
+];
 
-export function unlockStealth() {
-  try {
-    window.localStorage.setItem(ACCESS_STORAGE_KEY, ACCESS_TOKEN);
-  } catch {}
-}
-
-export function lockStealth() {
-  try {
-    window.localStorage.removeItem(ACCESS_STORAGE_KEY);
-  } catch {}
+export function isStealthAllowedPath(pathname: string): boolean {
+  if (STEALTH_ALLOWED_PATHS.has(pathname)) return true;
+  return STEALTH_ALLOWED_PREFIXES.some((p) => pathname.startsWith(p));
 }
