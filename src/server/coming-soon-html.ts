@@ -8,7 +8,7 @@ const HTML = `<!doctype html>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="index, follow" />
-<meta name="theme-color" content="#05070a" />
+<meta name="theme-color" content="#111826" />
 <title>FITCO — Coming Soon</title>
 <meta property="og:title" content="FITCO — Coming Soon" />
 <meta property="og:description" content="Something powerful is being crafted." />
@@ -21,7 +21,7 @@ const HTML = `<!doctype html>
   html, body { margin: 0; padding: 0; }
   body {
     min-height: 100vh;
-    background: #05070a;
+    background: #111826;
     color: #fff;
     font-family: "Inter", system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -31,9 +31,9 @@ const HTML = `<!doctype html>
   .ambient {
     position: fixed; inset: 0; pointer-events: none; z-index: 0;
     background:
-      radial-gradient(ellipse 80% 60% at 50% 0%, oklch(0.62 0.16 152 / 0.28), transparent 60%),
-      radial-gradient(ellipse 60% 50% at 90% 110%, oklch(0.46 0.13 158 / 0.22), transparent 60%),
-      radial-gradient(ellipse 50% 40% at 10% 90%, oklch(0.55 0.14 155 / 0.16), transparent 60%);
+      radial-gradient(ellipse 80% 60% at 50% 0%, oklch(0.78 0.14 152 / 0.32), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 110%, oklch(0.62 0.12 158 / 0.28), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 10% 90%, oklch(0.7 0.13 155 / 0.22), transparent 60%);
   }
   .grid {
     position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.18;
@@ -50,7 +50,7 @@ const HTML = `<!doctype html>
     transform: translate(-50%, -50%);
     border-radius: 9999px;
     filter: blur(64px);
-    background: conic-gradient(from 90deg, oklch(0.62 0.16 152 / 0.5), oklch(0.46 0.13 158 / 0), oklch(0.62 0.16 152 / 0.5));
+    background: conic-gradient(from 90deg, oklch(0.8 0.15 152 / 0.55), oklch(0.62 0.12 158 / 0), oklch(0.8 0.15 152 / 0.55));
     animation: orb 9s ease-in-out infinite;
     z-index: 0; pointer-events: none;
   }
