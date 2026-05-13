@@ -1,3 +1,4 @@
-# FITCO is currently in stealth mode.
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /access
+Disallow: /api/
