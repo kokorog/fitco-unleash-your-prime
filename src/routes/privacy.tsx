@@ -17,7 +17,7 @@ function PrivacyPage() {
       <PageHero eyebrow="Поверителност" title="Политика за поверителност" description="В сила от 1 януари 2026 г." />
       <article className="prose-fitco mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8 space-y-8 text-sm leading-relaxed text-muted-foreground">
         <Block title="1. Кои сме ние">
-          FITCO ООД („ние“, „нас“) е администратор на лични данни по смисъла на GDPR. Седалище: ул. Алабин 1, София 1000, България. Контакт: <a href="mailto:support@fitco.app" className="text-primary">support@fitco.app</a>.
+          FITCO ООД („ние“, „нас“) е администратор на лични данни по смисъла на GDPR. Седалище: ул. Алабин 1, София 1000, България. Контакт: <a href="mailto:support@fitcoapp.com" className="text-primary">support@fitcoapp.com</a>.
         </Block>
         <Block title="2. Какви данни събираме">
           Профилни данни (име, имейл), здравни и фитнес данни (тегло, височина, тренировки, хранене), технически данни (IP, устройство, бисквитки). Никога не събираме повече, отколкото е нужно.
@@ -29,7 +29,7 @@ function PrivacyPage() {
           Съхраняваме данните за срока на активния акаунт + 12 месеца. След това се изтриват или анонимизират.
         </Block>
         <Block title="5. Твоите права">
-          Достъп, корекция, изтриване, ограничаване, преносимост и възражение. Подай заявка от Профил → Поверителност или на <a href="mailto:support@fitco.app" className="text-primary">support@fitco.app</a>.
+          Достъп, корекция, изтриване, ограничаване, преносимост и възражение. Подай заявка от Профил → Поверителност или на <a href="mailto:support@fitcoapp.com" className="text-primary">support@fitcoapp.com</a>.
         </Block>
         <Block title="6. Сигурност">
           TLS 1.3 при пренос, AES-256 при съхранение, ЕС хостинг и редовни одити.

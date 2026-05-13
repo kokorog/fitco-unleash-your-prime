@@ -7,7 +7,7 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Контакти — FITCO" },
-      { name: "description", content: "Свържи се с екипа на FITCO. Поддръжка: support@fitco.app." },
+      { name: "description", content: "Свържи се с екипа на FITCO. Поддръжка: support@fitcoapp.com." },
     ],
   }),
   component: ContactPage,
@@ -24,9 +24,9 @@ function ContactPage() {
       <section className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-3 lg:px-8">
         <div className="space-y-4 lg:col-span-1">
           {[
-            { icon: Mail, title: "Поддръжка", value: "support@fitco.app", href: "mailto:support@fitco.app" },
-            { icon: Mail, title: "Общи запитвания", value: "info@fitcoapp.com", href: "mailto:info@fitcoapp.com" },
-            { icon: MessageCircle, title: "Преса & партньорства", value: "press@fitco.app", href: "mailto:press@fitco.app" },
+            { icon: Mail, title: "Поддръжка", value: "support@fitcoapp.com", href: "mailto:support@fitcoapp.com" },
+            { icon: Mail, title: "Общи запитвания", value: "support@fitcoapp.com", href: "mailto:support@fitcoapp.com" },
+            { icon: MessageCircle, title: "Преса & партньорства", value: "support@fitcoapp.com", href: "mailto:support@fitcoapp.com" },
             { icon: Phone, title: "Телефон (пн–пт, 9–18)", value: "+359 2 444 5555", href: "tel:+35924445555" },
             { icon: MapPin, title: "Офис", value: "ул. Алабин 1, София 1000, България" },
           ].map(({ icon: Icon, title, value, href }, i) => (
@@ -51,7 +51,7 @@ function ContactPage() {
           className="space-y-4 rounded-2xl border border-border bg-card p-6 lg:col-span-2"
           onSubmit={(e) => {
             e.preventDefault();
-            window.location.href = "mailto:support@fitco.app";
+            window.location.href = "mailto:support@fitcoapp.com";
           }}
         >
           <h2 className="text-2xl font-bold">Изпрати съобщение</h2>

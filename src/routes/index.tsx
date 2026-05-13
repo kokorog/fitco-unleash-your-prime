@@ -599,7 +599,7 @@ function Faq() {
         </div>
         <div className="mt-8 text-center text-sm text-muted-foreground">
           Не намираш отговор? Пиши ни на{" "}
-          <a href="mailto:support@fitco.app" className="text-primary hover:underline">support@fitco.app</a>
+          <a href="mailto:support@fitcoapp.com" className="text-primary hover:underline">support@fitcoapp.com</a>
         </div>
       </div>
     </section>
@@ -619,7 +619,7 @@ function Download() {
           <p className="mt-6 text-lg text-muted-foreground">Изтегли FITCO за iOS и Android. Безплатно завинаги — с опционален Pro.</p>
           <StoreButtons className="mt-8" />
           <div className="mt-6 text-sm text-muted-foreground">
-            Въпроси? <a href="mailto:support@fitco.app" className="text-primary hover:underline">support@fitco.app</a>
+            Въпроси? <a href="mailto:support@fitcoapp.com" className="text-primary hover:underline">support@fitcoapp.com</a>
           </div>
         </div>
         <div className="grid place-items-center">
