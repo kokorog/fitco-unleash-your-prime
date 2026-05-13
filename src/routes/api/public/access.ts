@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ACCESS_COOKIE_NAME,
+  cookieDomainForHost,
 } from "@/lib/site-mode";
 import {
   buildClearCookie,
@@ -69,6 +70,8 @@ export const Route = createFileRoute("/api/public/access")({
 
         const exp = Math.floor(Date.now() / 1000) + MAX_AGE;
         const token = await signAccessToken({ exp }, secret);
+        const hostname = new URL(request.url).hostname;
+        const domain = cookieDomainForHost(hostname);
         return jsonResponse(
           { ok: true },
           {
@@ -76,20 +79,22 @@ export const Route = createFileRoute("/api/public/access")({
             headers: {
               "Set-Cookie": buildSetCookie(
                 token,
-                { maxAgeSeconds: MAX_AGE },
+                { maxAgeSeconds: MAX_AGE, domain },
                 ACCESS_COOKIE_NAME,
               ),
             },
           },
         );
       },
-      DELETE: async () => {
+      DELETE: async ({ request }) => {
+        const hostname = new URL(request.url).hostname;
+        const domain = cookieDomainForHost(hostname);
         return jsonResponse(
           { ok: true },
           {
             status: 200,
             headers: {
-              "Set-Cookie": buildClearCookie(ACCESS_COOKIE_NAME),
+              "Set-Cookie": buildClearCookie(ACCESS_COOKIE_NAME, domain),
             },
           },
         );
