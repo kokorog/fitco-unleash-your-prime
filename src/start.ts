@@ -1,67 +1,6 @@
 import { createStart, createMiddleware } from "@tanstack/react-start";
 
 import { renderErrorPage } from "./lib/error-page";
-import {
-  ACCESS_COOKIE_NAME,
-  isPrivateUnauthPath,
-  isPublicPassthroughPath,
-  resolveHostMode,
-} from "./lib/site-mode";
-import { parseCookie, verifyAccessToken } from "./server/access-cookie";
-import { getComingSoonHtml } from "./server/coming-soon-html";
-
-const SECURITY_HEADERS: Record<string, string> = {
-  "Referrer-Policy": "no-referrer",
-  "X-Frame-Options": "DENY",
-  "X-Content-Type-Options": "nosniff",
-};
-
-const stealthMiddleware = createMiddleware().server(async ({ next, request }) => {
-  const url = new URL(request.url);
-  const mode = resolveHostMode(url.hostname);
-
-  // PUBLIC host (fitcoapp.com / www.fitcoapp.com): always Coming Soon.
-  if (mode === "public") {
-    if (isPublicPassthroughPath(url.pathname)) return next();
-    return new Response(getComingSoonHtml(), {
-      status: 200,
-      headers: {
-        "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "no-store, no-cache, must-revalidate",
-        ...SECURITY_HEADERS,
-      },
-    });
-  }
-
-  // Lovable editor preview iframe: bypass the password gate so the
-  // internal preview and Visual Edits can render the real app. Third-
-  // party cookies are blocked inside the editor iframe, so the cookie
-  // gate would otherwise loop forever. These hosts are only served by
-  // the Lovable editor, not the public.
-  if (mode === "preview") return next();
-
-  // PRIVATE host: gate the real app behind the access cookie. /access and
-  // assets are reachable so the visitor can unlock. Robots noindex is
-  // applied via per-route meta (see __root.tsx).
-  if (isPrivateUnauthPath(url.pathname)) return next();
-
-  const secret = process.env.ACCESS_COOKIE_SECRET;
-  if (secret) {
-    const token = parseCookie(request.headers.get("cookie"), ACCESS_COOKIE_NAME);
-    const payload = await verifyAccessToken(token, secret);
-    if (payload) return next();
-  }
-
-  // No valid cookie on a private host → redirect to /access.
-  return new Response(null, {
-    status: 302,
-    headers: {
-      Location: "/access",
-      "Cache-Control": "no-store",
-      ...SECURITY_HEADERS,
-    },
-  });
-});
 
 const errorMiddleware = createMiddleware().server(async ({ next }) => {
   try {
@@ -79,5 +18,5 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
 });
 
 export const startInstance = createStart(() => ({
-  requestMiddleware: [stealthMiddleware, errorMiddleware],
+  requestMiddleware: [errorMiddleware],
 }));
