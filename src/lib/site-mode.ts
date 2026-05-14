@@ -17,16 +17,29 @@ export const PRIVATE_HOSTS = new Set<string>([
   "private.fitcoapp.com",
 ]);
 
-// Hostnames matching these suffixes are treated as PRIVATE (used for
-// Lovable preview/published staging URLs and local dev).
-const PRIVATE_HOST_SUFFIXES = [".lovable.app", "localhost"];
+// Hostnames matching these suffixes are treated as PRIVATE for local dev.
+const PRIVATE_HOST_SUFFIXES = ["localhost"];
 
-export type HostMode = "public" | "private";
+// Lovable editor / preview hosts. These bypass the password gate entirely
+// so the internal preview iframe (and Visual Edits) can render the real
+// app without a login loop. Third-party cookies are blocked inside the
+// editor iframe, which is why the cookie-based gate fails there.
+const LOVABLE_PREVIEW_SUFFIXES = [
+  ".lovable.app",
+  ".lovableproject.com",
+  ".lovable.dev",
+  ".sandbox.lovable.dev",
+];
+
+export type HostMode = "public" | "private" | "preview";
 
 export function resolveHostMode(hostname: string): HostMode {
   const h = hostname.toLowerCase().split(":")[0];
   if (PUBLIC_HOSTS.has(h)) return "public";
   if (PRIVATE_HOSTS.has(h)) return "private";
+  if (LOVABLE_PREVIEW_SUFFIXES.some((s) => h === s.slice(1) || h.endsWith(s))) {
+    return "preview";
+  }
   if (PRIVATE_HOST_SUFFIXES.some((s) => h === s || h.endsWith(s))) return "private";
   // Unknown host — default to public (safer: never expose real app).
   return "public";
