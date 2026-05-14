@@ -74,9 +74,9 @@ function HomePage() {
 
           <div className="relative mt-16 lg:col-span-5 lg:mt-0">
             <Parallax speed={0.08}>
-              <div className="relative grid grid-cols-3 gap-2 sm:gap-3">
-                <div className="col-span-2 animate-fade-up" style={{ animationDelay: "0.2s" }}><NutritionMockup /></div>
-                <div className="-mt-8 animate-fade-up animate-float" style={{ animationDelay: "0.3s" }}><TrainingMockup /></div>
+              <div className="relative flex items-start justify-center gap-3 sm:gap-4">
+                <div className="animate-fade-up" style={{ animationDelay: "0.2s" }}><NutritionMockup /></div>
+                <div className="hidden sm:block -mt-8 animate-fade-up animate-float" style={{ animationDelay: "0.3s" }}><TrainingMockup /></div>
               </div>
             </Parallax>
           </div>

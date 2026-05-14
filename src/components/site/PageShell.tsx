@@ -5,7 +5,7 @@ import { CookieConsent } from "./CookieConsent";
 
 export function PageShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
       <Header />
       <main id="main" className="pt-16">{children}</main>
       <Footer />
