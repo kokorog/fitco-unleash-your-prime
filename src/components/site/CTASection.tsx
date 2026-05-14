@@ -9,7 +9,7 @@ export function CTASection() {
       <div aria-hidden className="pointer-events-none absolute -bottom-40 -left-20 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
       <div className="relative mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
         <div>
-          <span className="pill bg-primary/20 text-white">{t.cta.waitlist}</span>
+          <span className="pill bg-primary/20 text-slate-50">{t.cta.waitlist}</span>
           <h2 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">{t.waitlist.heading}</h2>
           <p className="mt-4 max-w-md text-base text-ink-foreground/70">{t.waitlist.sub}</p>
         </div>

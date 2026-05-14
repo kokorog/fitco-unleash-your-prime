@@ -47,7 +47,7 @@ function HomePage() {
         <div aria-hidden className="pointer-events-none absolute right-10 top-10 h-56 w-56 rounded-full bg-lemon/30 blur-3xl animate-float" style={{ animationDelay: "1.2s" }} />
         <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-24 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-12 lg:px-8 lg:pb-24 lg:pt-32">
           <div className="lg:col-span-7">
-            <span className="pill bg-primary/20 text-white animate-fade-up">{t.hero.eyebrow}</span>
+            <span className="pill bg-primary/20 text-slate-50 animate-fade-up">{t.hero.eyebrow}</span>
             <h1 className="animate-fade-up mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl" style={{ animationDelay: "0.05s" }}>
               {t.hero.title}
             </h1>
@@ -87,7 +87,7 @@ function HomePage() {
       <section id="promises" className="border-y border-border bg-surface py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
-            <span className="pill bg-primary/20 text-white">{t.promises.heading.split(".")[0]}</span>
+            <span className="pill bg-primary/20 text-slate-50">{t.promises.heading.split(".")[0]}</span>
             <h2 className="mt-4 text-3xl font-bold sm:text-4xl">{t.promises.heading}</h2>
             <p className="mt-3 text-base text-muted-foreground">{t.promises.sub}</p>
           </Reveal>
@@ -106,7 +106,7 @@ function HomePage() {
       <section id="features" className="scroll-mt-24 py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
-            <span className="pill bg-primary/20 text-white">{t.nav.features}</span>
+            <span className="pill bg-primary/20 text-slate-50">{t.nav.features}</span>
             <h2 className="mt-4 text-3xl font-bold sm:text-4xl">{t.featuresGrid.heading}</h2>
             <p className="mt-3 text-base text-muted-foreground">{t.featuresGrid.sub}</p>
           </Reveal>
@@ -161,7 +161,7 @@ function HomePage() {
       <section id="rewards" className="scroll-mt-24 bg-surface py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="mx-auto max-w-2xl text-center">
-            <span className="pill bg-primary/20 text-white">{t.progress.eyebrow}</span>
+            <span className="pill bg-primary/20 text-slate-50">{t.progress.eyebrow}</span>
             <h2 className="mt-4 text-3xl font-bold sm:text-4xl">{t.progress.title}</h2>
             <p className="mt-3 text-base text-muted-foreground">{t.progress.sub}</p>
           </Reveal>
@@ -214,7 +214,7 @@ function HomePage() {
 function DeepDive({ id, side, eyebrow, title, sub, bullets, mockup, dark }: { id?: string; side: "left" | "right"; eyebrow: string; title: string; sub: string; bullets: readonly string[]; mockup: React.ReactNode; dark?: boolean }) {
   const textBlock = (
     <Reveal>
-      <span className="pill bg-primary/20 text-white">{eyebrow}</span>
+      <span className="pill bg-primary/20 text-slate-50">{eyebrow}</span>
       <h2 className={`mt-4 text-3xl font-bold sm:text-4xl ${dark ? "text-ink-foreground" : ""}`}>{title}</h2>
       <p className={`mt-4 max-w-xl text-base ${dark ? "text-ink-foreground/70" : "text-muted-foreground"}`}>{sub}</p>
       <ul className={`mt-6 grid gap-2 sm:grid-cols-2 ${dark ? "text-ink-foreground/85" : ""}`}>

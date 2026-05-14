@@ -7,7 +7,7 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <p className="pill bg-primary/20 text-white mx-auto">404</p>
+        <p className="pill bg-primary/20 text-slate-50 mx-auto">404</p>
         <h1 className="mt-4 font-display text-3xl font-bold">Page not found</h1>
         <p className="mt-2 text-sm text-muted-foreground">The page you're looking for doesn't exist.</p>
         <Link to="/" className="mt-6 inline-flex items-center rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-ink-foreground hover:bg-ink/90">Go home</Link>
