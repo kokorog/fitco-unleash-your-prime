@@ -1,55 +1,34 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageShell, PageHero } from "@/components/site/PageShell";
+import { LegalPageLayout } from "@/components/legal/LegalPageLayout";
+import { useLang } from "@/lib/i18n/LanguageProvider";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Политика за поверителност — FITCO" },
-      { name: "description", content: "Как FITCO събира, използва и защитава твоите лични данни в съответствие с GDPR." },
+      { title: "Privacy Policy — FitCo" },
+      { name: "description", content: "How FitCo collects, uses and protects your data, and how you can control it." },
+      { property: "og:url", content: "https://fitcoapp.com/privacy" },
     ],
+    links: [{ rel: "canonical", href: "https://fitcoapp.com/privacy" }],
   }),
-  component: PrivacyPage,
+  component: () => {
+    const { t, lang } = useLang();
+    const en = lang === "en";
+    return (
+      <LegalPageLayout title={t.legal.privacy.title} updated={t.legal.privacy.updated} intro={t.legal.privacy.intro}>
+        <Section h={en ? "Account & profile data" : "Профил и акаунт"} p={en ? "We store your account email, profile fields (name, gender, height, weight, goal, activity level) and preferences so we can personalize the app." : "Съхраняваме имейл, профилни полета (име, пол, височина, тегло, цел, активност) и предпочитания, за да персонализираме приложението."} />
+        <Section h={en ? "Nutrition & activity data" : "Хранене и активност"} p={en ? "Meals, water, workouts, steps and other activity entries you log are stored to power your dashboards, history and progress." : "Хранене, вода, тренировки, стъпки и друга активност се съхраняват за дневници, история и прогрес."} />
+        <Section h={en ? "Progress photos" : "Снимки на прогрес"} p={en ? "If you upload progress photos, they are private to your account unless you explicitly share them." : "Ако качиш снимки на прогрес, те са лични до твоя акаунт, освен ако сам не ги споделиш."} />
+        <Section h={en ? "Community posts & chats" : "Постове и чатове"} p={en ? "Posts, comments and chat messages are stored to enable the community features. You can delete your content at any time." : "Постове, коментари и чат съобщения се съхраняват за общността. Можеш да изтриеш съдържанието си по всяко време."} />
+        <Section h={en ? "Support communication" : "Кореспонденция с поддръжка"} p={en ? "When you email support@fitcoapp.com we keep the message to help you and improve the service." : "Когато пишеш на support@fitcoapp.com пазим съобщението за поддръжка и подобрения."} />
+        <Section h={en ? "Analytics & cookies" : "Аналитика и бисквитки"} p={en ? "We use essential cookies and, with your consent, analytics and marketing cookies. See the Cookie Policy for details." : "Използваме нужни бисквитки и — със съгласие — аналитични и маркетингови. Виж Политиката за бисквитки."} />
+        <Section h={en ? "Data deletion" : "Изтриване на данни"} p={en ? "You can request data deletion anytime at support@fitcoapp.com." : "Можеш да поискаш изтриване по всяко време на support@fitcoapp.com."} />
+        <Section h={en ? "Not medical advice" : "Не е медицински съвет"} p={en ? "FitCo is advisory and informational. It is not medical advice." : "FitCo е консултативен инструмент. Не е медицински съвет."} />
+      </LegalPageLayout>
+    );
+  },
 });
 
-function PrivacyPage() {
-  return (
-    <PageShell>
-      <PageHero eyebrow="Поверителност" title="Политика за поверителност" description="В сила от 1 януари 2026 г." />
-      <article className="prose-fitco mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8 space-y-8 text-sm leading-relaxed text-muted-foreground">
-        <Block title="1. Кои сме ние">
-          FITCO ООД („ние“, „нас“) е администратор на лични данни по смисъла на GDPR. Седалище: ул. Алабин 1, София 1000, България. Контакт: <a href="mailto:support@fitcoapp.com" className="text-primary">support@fitcoapp.com</a>.
-        </Block>
-        <Block title="2. Какви данни събираме">
-          Профилни данни (име, имейл), здравни и фитнес данни (тегло, височина, тренировки, хранене), технически данни (IP, устройство, бисквитки). Никога не събираме повече, отколкото е нужно.
-        </Block>
-        <Block title="3. На какво основание">
-          Изпълнение на договор (предоставяне на услугата), законен интерес (сигурност, анализ), съгласие (маркетинг, опционални интеграции).
-        </Block>
-        <Block title="4. Срок на съхранение">
-          Съхраняваме данните за срока на активния акаунт + 12 месеца. След това се изтриват или анонимизират.
-        </Block>
-        <Block title="5. Твоите права">
-          Достъп, корекция, изтриване, ограничаване, преносимост и възражение. Подай заявка от Профил → Поверителност или на <a href="mailto:support@fitcoapp.com" className="text-primary">support@fitcoapp.com</a>.
-        </Block>
-        <Block title="6. Сигурност">
-          TLS 1.3 при пренос, AES-256 при съхранение, ЕС хостинг и редовни одити.
-        </Block>
-        <Block title="7. Споделяне">
-          Не продаваме лични данни. Споделяме само с обработващи, обвързани с GDPR (хостинг, плащания, аналитика).
-        </Block>
-        <Block title="8. Промени">
-          При важни промени ще те уведомим в приложението и по имейл поне 30 дни предварително.
-        </Block>
-      </article>
-    </PageShell>
-  );
-}
-
-function Block({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section>
-      <h2 className="text-lg font-semibold text-foreground">{title}</h2>
-      <p className="mt-2">{children}</p>
-    </section>
-  );
+function Section({ h, p }: { h: string; p: string }) {
+  return (<div><h2 className="font-display text-lg font-bold">{h}</h2><p className="mt-2 text-muted-foreground">{p}</p></div>);
 }

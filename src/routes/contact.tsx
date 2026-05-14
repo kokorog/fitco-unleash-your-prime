@@ -1,95 +1,56 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { useState } from "react";
 import { PageShell, PageHero } from "@/components/site/PageShell";
 import { Button } from "@/components/ui/button";
+import { useLang } from "@/lib/i18n/LanguageProvider";
+import { Mail } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Контакти — FITCO" },
-      { name: "description", content: "Свържи се с екипа на FITCO. Поддръжка: support@fitcoapp.com." },
+      { title: "Contact & support — FitCo" },
+      { name: "description", content: "Reach the FitCo team for support, partnerships or press. Email support@fitcoapp.com." },
+      { property: "og:title", content: "Contact & support — FitCo" },
+      { property: "og:description", content: "We read every message." },
+      { property: "og:url", content: "https://fitcoapp.com/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://fitcoapp.com/contact" }],
   }),
   component: ContactPage,
 });
 
 function ContactPage() {
+  const { t } = useLang();
+  const [sent, setSent] = useState(false);
+  const [email, setEmail] = useState("");
+  const [msg, setMsg] = useState("");
   return (
     <PageShell>
-      <PageHero
-        eyebrow="Контакти"
-        title="Тук сме за теб."
-        description="Имаш въпрос, идея или партньорска оферта? Пиши ни — отговаряме до 24 часа."
-      />
-      <section className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-3 lg:px-8">
-        <div className="space-y-4 lg:col-span-1">
-          {[
-            { icon: Mail, title: "Поддръжка", value: "support@fitcoapp.com", href: "mailto:support@fitcoapp.com" },
-            { icon: Mail, title: "Общи запитвания", value: "support@fitcoapp.com", href: "mailto:support@fitcoapp.com" },
-            { icon: MessageCircle, title: "Преса & партньорства", value: "support@fitcoapp.com", href: "mailto:support@fitcoapp.com" },
-            { icon: Phone, title: "Телефон (пн–пт, 9–18)", value: "+359 2 444 5555", href: "tel:+35924445555" },
-            { icon: MapPin, title: "Офис", value: "ул. Алабин 1, София 1000, България" },
-          ].map(({ icon: Icon, title, value, href }, i) => (
-            <a
-              key={i}
-              href={href ?? "#"}
-              className="block rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/50"
-            >
-              <div className="flex items-start gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-lg bg-primary/15 text-primary">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-muted-foreground">{title}</div>
-                  <div className="mt-1 font-medium">{value}</div>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-        <form
-          className="space-y-4 rounded-2xl border border-border bg-card p-6 lg:col-span-2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            window.location.href = "mailto:support@fitcoapp.com";
-          }}
-        >
-          <h2 className="text-2xl font-bold">Изпрати съобщение</h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Име" type="text" />
-            <Field label="Имейл" type="email" />
-          </div>
-          <Field label="Тема" type="text" />
+      <PageHero eyebrow={t.contact.title} title={t.contact.title} description={t.contact.sub} />
+      <section className="py-16">
+        <div className="mx-auto grid max-w-5xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div>
-            <label className="text-sm font-medium">Съобщение</label>
-            <textarea
-              required
-              rows={6}
-              className="mt-2 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:border-primary focus:outline-none"
-            />
+            <h2 className="font-display text-xl font-bold">{t.contact.emailLabel}</h2>
+            <a href="mailto:support@fitcoapp.com" className="mt-3 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm hover:bg-secondary">
+              <Mail className="h-4 w-4 text-primary" /> support@fitcoapp.com
+            </a>
+            <p className="mt-6 text-sm text-muted-foreground">{t.contact.formIntro}</p>
           </div>
-          <label className="flex items-start gap-2 text-sm text-muted-foreground">
-            <input type="checkbox" required className="mt-1" />
-            Съгласен/а съм с обработката на личните ми данни според Политиката за поверителност.
-          </label>
-          <Button type="submit" size="lg" className="bg-primary text-primary-foreground hover:bg-primary-glow">
-            Изпрати
-          </Button>
-        </form>
+          {sent ? (
+            <div className="rounded-3xl border border-primary/30 bg-primary/10 p-6 text-sm">{t.contact.sent}</div>
+          ) : (
+            <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="rounded-3xl border border-border bg-card p-6 shadow-soft">
+              <label className="block text-xs text-muted-foreground">{t.waitlist.email}
+                <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm" />
+              </label>
+              <label className="mt-3 block text-xs text-muted-foreground">{t.contact.message}
+                <textarea required value={msg} onChange={(e) => setMsg(e.target.value)} rows={5} className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm" />
+              </label>
+              <Button type="submit" className="mt-4 w-full rounded-full bg-ink text-ink-foreground hover:bg-ink/90 h-11">{t.contact.send}</Button>
+            </form>
+          )}
+        </div>
       </section>
     </PageShell>
-  );
-}
-
-function Field({ label, type }: { label: string; type: string }) {
-  return (
-    <div>
-      <label className="text-sm font-medium">{label}</label>
-      <input
-        required
-        type={type}
-        className="mt-2 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:border-primary focus:outline-none"
-      />
-    </div>
   );
 }

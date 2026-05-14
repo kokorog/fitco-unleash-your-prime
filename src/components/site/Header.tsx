@@ -2,18 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Button } from "@/components/ui/button";
-
-const NAV = [
-  { to: "/features", label: "Функции" },
-  { to: "/pricing", label: "Цени" },
-  { to: "/community", label: "Общност" },
-  { to: "/about", label: "За нас" },
-  { to: "/faq", label: "ЧЗВ" },
-  { to: "/contact", label: "Контакти" },
-] as const;
+import { useLang } from "@/lib/i18n/LanguageProvider";
 
 export function Header() {
+  const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -24,58 +18,53 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const nav = [
+    { to: "/features", label: t.nav.features },
+    { to: "/nutrition", label: t.nav.nutrition },
+    { to: "/training", label: t.nav.training },
+    { to: "/community", label: t.nav.community },
+    { to: "/rewards", label: t.nav.rewards },
+    { to: "/faq", label: t.nav.faq },
+  ] as const;
+
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "glass-strong border-b" : "bg-transparent border-b border-transparent"
-      }`}
-    >
+    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? "glass-strong" : "bg-transparent"}`}>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo />
-        <nav className="hidden items-center gap-1 lg:flex">
-          {NAV.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
+        <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+          {nav.map((item) => (
+            <Link key={item.to} to={item.to}
               className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "rounded-md px-3 py-2 text-sm text-foreground" }}
-            >
+              activeProps={{ className: "rounded-md px-3 py-2 text-sm text-foreground font-medium" }}>
               {item.label}
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-2 lg:flex">
-          <Button variant="ghost" size="sm" asChild>
-            <a href="#download">Изтегли</a>
-          </Button>
-          <Button size="sm" asChild className="bg-primary text-primary-foreground hover:bg-primary-glow shadow-soft">
-            <Link to="/pricing">Започни</Link>
+        <div className="hidden items-center gap-3 lg:flex">
+          <LanguageSwitcher compact />
+          <Button asChild size="sm" className="rounded-full bg-ink text-ink-foreground hover:bg-ink/90 shadow-soft">
+            <Link to="/" hash="waitlist">{t.cta.joinShort}</Link>
           </Button>
         </div>
-        <button
-          aria-label="Меню"
-          className="rounded-md p-2 lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-        >
+        <button aria-label="Menu" className="rounded-md p-2 lg:hidden" onClick={() => setOpen((v) => !v)}>
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
       {open && (
-        <div className="glass-strong border-t lg:hidden">
+        <div className="glass-strong border-t border-border lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
-            {NAV.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-3 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground"
-              >
+            {nav.map((item) => (
+              <Link key={item.to} to={item.to} onClick={() => setOpen(false)}
+                className="rounded-md px-3 py-3 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground">
                 {item.label}
               </Link>
             ))}
-            <Button className="mt-2 bg-primary text-primary-foreground hover:bg-primary-glow" asChild>
-              <Link to="/pricing" onClick={() => setOpen(false)}>Започни</Link>
-            </Button>
+            <div className="mt-2 flex items-center justify-between gap-2">
+              <LanguageSwitcher compact />
+              <Button asChild className="rounded-full bg-ink text-ink-foreground hover:bg-ink/90">
+                <Link to="/" hash="waitlist" onClick={() => setOpen(false)}>{t.cta.joinShort}</Link>
+              </Button>
+            </div>
           </div>
         </div>
       )}
