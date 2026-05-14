@@ -82,7 +82,7 @@ function Hero() {
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>
             </Button>
-            <Button size="lg" variant="outline" asChild className="h-12 border-white/15 bg-white/[0.03] px-6 hover:bg-white/[0.06]">
+            <Button size="lg" variant="outline" asChild className="h-12 border-foreground/15 bg-foreground/[0.03] px-6 hover:bg-foreground/[0.06]">
               <a href="#features">Виж как работи</a>
             </Button>
           </div>
@@ -129,7 +129,7 @@ function HeroEcosystem() {
           </div>
           <div className="mt-1 text-sm text-muted-foreground">от 2 200 цел</div>
         </div>
-        <div className="mt-5 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+        <div className="mt-5 h-1.5 w-full overflow-hidden rounded-full bg-foreground/10">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: "84%" }}
@@ -143,7 +143,7 @@ function HeroEcosystem() {
             { l: "Стъпки", v: "8 340" },
             { l: "Вода", v: "2.1L" },
           ].map((m) => (
-            <div key={m.l} className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+            <div key={m.l} className="rounded-xl border border-foreground/10 bg-foreground/[0.02] p-3">
               <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{m.l}</div>
               <div className="mt-1 text-sm font-semibold">{m.v}</div>
             </div>
@@ -176,7 +176,7 @@ function HeroEcosystem() {
         </div>
         <div className="mt-2 text-sm font-semibold">Южен парк loop</div>
         <div className="mt-1 text-[11px] text-muted-foreground">5.2 км · 360 kcal</div>
-        <div className="mt-3 h-12 w-full overflow-hidden rounded-md bg-white/[0.03]">
+        <div className="mt-3 h-12 w-full overflow-hidden rounded-md bg-foreground/[0.03]">
           <svg viewBox="0 0 200 48" className="h-full w-full" preserveAspectRatio="none">
             <path
               d="M0,30 C20,18 40,40 60,28 C80,16 100,38 120,22 C140,8 160,30 180,18 L200,22"
@@ -196,7 +196,7 @@ function HeroEcosystem() {
 function PressStrip() {
   const items = ["Forbes", "Capital", "Bloomberg", "TechCrunch", "Wired", "Men's Health", "GQ", "Vogue"];
   return (
-    <section className="relative border-y border-white/5 bg-black/20 py-10">
+    <section className="relative border-y border-foreground/5 bg-muted/40 py-10">
       <div className="mx-auto max-w-7xl overflow-hidden px-4 sm:px-6 lg:px-8">
         <p className="mb-6 text-center text-[11px] uppercase tracking-[0.25em] text-muted-foreground">As featured in</p>
         <div className="relative">
@@ -224,7 +224,7 @@ function StatsBar() {
     { value: 4.9, suffix: "★", label: "App Store оценка" },
   ];
   return (
-    <section className="border-b border-white/5 py-20">
+    <section className="border-b border-foreground/5 py-20">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-10 px-4 sm:px-6 lg:grid-cols-4 lg:px-8">
         {stats.map((s, i) => (
           <motion.div
@@ -283,7 +283,7 @@ function SectionShell({
   id?: string;
 }) {
   return (
-    <section id={id} className="relative overflow-hidden border-b border-white/5 py-28">
+    <section id={id} className="relative overflow-hidden border-b border-foreground/5 py-28">
       <div className="absolute inset-0 dot-bg opacity-40" />
       <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8">
         <motion.div
@@ -333,10 +333,10 @@ function PlaceholderCanvas({
   height?: string;
 }) {
   return (
-    <div className={`group relative ${height} w-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-8 shadow-elevated backdrop-blur-sm`}>
+    <div className={`group relative ${height} w-full overflow-hidden rounded-3xl border border-foreground/10 bg-gradient-to-br from-foreground/[0.04] to-foreground/[0.015] p-8 shadow-elevated backdrop-blur-sm`}>
       <div className="absolute inset-0 grid-bg opacity-25" />
       <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/15 blur-[80px] transition-opacity group-hover:opacity-80" />
-      <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-3 py-1 text-[10px] uppercase tracking-widest text-muted-foreground backdrop-blur">
+      <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full border border-foreground/10 bg-background/70 px-3 py-1 text-[10px] uppercase tracking-widest text-muted-foreground backdrop-blur">
         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
         {label}
       </div>
@@ -361,7 +361,7 @@ function SectionAITrainer() {
         <PlaceholderCanvas label="AI Trainer Preview">
           <div className="flex h-full flex-col justify-between">
             <div className="space-y-3">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <div className="rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-4">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Bot className="h-3.5 w-3.5 text-primary" /> Coach
                 </div>
@@ -373,10 +373,10 @@ function SectionAITrainer() {
             </div>
             <div className="grid grid-cols-3 gap-3">
               {["Push", "Pull", "Legs"].map((d, i) => (
-                <div key={d} className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+                <div key={d} className="rounded-xl border border-foreground/10 bg-foreground/[0.02] p-3">
                   <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Day {i + 1}</div>
                   <div className="mt-1 text-sm font-semibold">{d}</div>
-                  <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-foreground/10">
                     <div className="h-full rounded-full bg-primary" style={{ width: `${30 + i * 25}%` }} />
                   </div>
                 </div>
@@ -410,12 +410,12 @@ function SectionNutrition() {
         <PlaceholderCanvas label="Nutrition Tracking">
           <div className="flex h-full flex-col gap-4">
             {macros.map((m, i) => (
-              <div key={m.label} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+              <div key={m.label} className="rounded-xl border border-foreground/10 bg-foreground/[0.03] p-4">
                 <div className="flex items-center justify-between text-sm">
                   <span className="font-medium">{m.label}</span>
                   <span className="text-muted-foreground">{m.value}g / {m.target}g</span>
                 </div>
-                <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
+                <div className="mt-2 h-2 overflow-hidden rounded-full bg-foreground/10">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${(m.value / m.target) * 100}%` }}
@@ -426,7 +426,7 @@ function SectionNutrition() {
                 </div>
               </div>
             ))}
-            <div className="mt-auto flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-3">
+            <div className="mt-auto flex items-center gap-3 rounded-xl border border-foreground/10 bg-foreground/[0.02] p-3">
               <Droplet className="h-5 w-5 text-sky-300" />
               <div className="flex-1 text-sm">Хидратация</div>
               <div className="text-sm font-semibold">2.1 / 2.5 L</div>
@@ -452,7 +452,7 @@ function SectionRoutes() {
       visual={
         <PlaceholderCanvas label="Routes Preview">
           <div className="flex h-full flex-col gap-4">
-            <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
+            <div className="relative flex-1 overflow-hidden rounded-2xl border border-foreground/10 bg-foreground/[0.02]">
               <svg viewBox="0 0 400 240" className="h-full w-full" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="rg" x1="0" x2="1">
@@ -470,7 +470,7 @@ function SectionRoutes() {
                 <circle cx="20" cy="200" r="6" fill="oklch(0.88 0.22 130)" />
                 <circle cx="380" cy="60" r="6" fill="oklch(0.88 0.22 130)" />
               </svg>
-              <div className="absolute bottom-3 left-3 rounded-lg border border-white/10 bg-black/50 px-3 py-1.5 text-[11px] backdrop-blur">
+              <div className="absolute bottom-3 left-3 rounded-lg border border-foreground/10 bg-background/70 px-3 py-1.5 text-[11px] backdrop-blur">
                 5.2 км · 360 kcal · 27 мин
               </div>
             </div>
@@ -480,7 +480,7 @@ function SectionRoutes() {
                 { l: "Pulse", v: "148 bpm" },
                 { l: "Elev.", v: "+82 м" },
               ].map((s) => (
-                <div key={s.l} className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+                <div key={s.l} className="rounded-xl border border-foreground/10 bg-foreground/[0.02] p-3">
                   <div className="text-[10px] uppercase tracking-widest text-muted-foreground">{s.l}</div>
                   <div className="mt-1 text-sm font-semibold">{s.v}</div>
                 </div>
@@ -566,7 +566,7 @@ function SectionCommunity() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-4"
+                className="rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-4"
               >
                 <div className="flex items-center gap-3">
                   <div className="grid h-9 w-9 place-items-center rounded-full bg-primary/15 text-xs font-bold text-primary">
@@ -590,7 +590,7 @@ function SectionCommunity() {
 /* ============ REVIEWS PLACEHOLDERS ============ */
 function Reviews() {
   return (
-    <section className="relative border-b border-white/5 py-28">
+    <section className="relative border-b border-foreground/5 py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
           <span className="text-xs uppercase tracking-[0.25em] text-primary">Reviews</span>
@@ -608,19 +608,19 @@ function Reviews() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-6 transition-all hover:border-primary/30"
+              className="group relative overflow-hidden rounded-2xl border border-foreground/10 bg-gradient-to-br from-foreground/[0.04] to-foreground/[0.015] p-6 transition-all hover:border-primary/30"
             >
               <Quote className="h-6 w-6 text-primary/60" />
               <div className="mt-5 space-y-2">
-                <div className="h-2 w-3/4 rounded-full bg-white/10" />
-                <div className="h-2 w-full rounded-full bg-white/10" />
-                <div className="h-2 w-5/6 rounded-full bg-white/10" />
+                <div className="h-2 w-3/4 rounded-full bg-foreground/10" />
+                <div className="h-2 w-full rounded-full bg-foreground/10" />
+                <div className="h-2 w-5/6 rounded-full bg-foreground/10" />
               </div>
               <div className="mt-8 flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-white/10" />
+                <div className="h-10 w-10 rounded-full bg-foreground/10" />
                 <div className="flex-1 space-y-1.5">
-                  <div className="h-2 w-20 rounded-full bg-white/10" />
-                  <div className="h-2 w-28 rounded-full bg-white/5" />
+                  <div className="h-2 w-20 rounded-full bg-foreground/10" />
+                  <div className="h-2 w-28 rounded-full bg-foreground/5" />
                 </div>
               </div>
               <div className="absolute right-4 top-4 text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -688,7 +688,7 @@ function Pricing() {
   ];
 
   return (
-    <section className="relative overflow-hidden border-b border-white/5 py-28">
+    <section className="relative overflow-hidden border-b border-foreground/5 py-28">
       <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-primary/8 blur-[120px]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
@@ -708,8 +708,8 @@ function Pricing() {
               transition={{ delay: i * 0.08 }}
               className={`relative flex flex-col rounded-3xl p-8 ${
                 t.featured
-                  ? "border border-primary/40 bg-gradient-to-b from-primary/[0.08] to-white/[0.02] shadow-glow"
-                  : "border border-white/10 bg-white/[0.02]"
+                  ? "border border-primary/40 bg-gradient-to-b from-primary/[0.08] to-foreground/[0.02] shadow-glow"
+                  : "border border-foreground/10 bg-foreground/[0.02]"
               }`}
             >
               {t.featured && (
@@ -740,7 +740,7 @@ function Pricing() {
                 className={`mt-10 h-11 w-full ${
                   t.featured
                     ? "bg-primary text-primary-foreground hover:bg-primary-glow shadow-glow"
-                    : "border border-white/15 bg-white/[0.03] text-foreground hover:bg-white/[0.06]"
+                    : "border border-foreground/15 bg-foreground/[0.03] text-foreground hover:bg-foreground/[0.06]"
                 }`}
               >
                 <Link to="/pricing">{t.cta}</Link>
