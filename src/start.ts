@@ -33,6 +33,13 @@ const stealthMiddleware = createMiddleware().server(async ({ next, request }) =>
     });
   }
 
+  // Lovable editor preview iframe: bypass the password gate so the
+  // internal preview and Visual Edits can render the real app. Third-
+  // party cookies are blocked inside the editor iframe, so the cookie
+  // gate would otherwise loop forever. These hosts are only served by
+  // the Lovable editor, not the public.
+  if (mode === "preview") return next();
+
   // PRIVATE host: gate the real app behind the access cookie. /access and
   // assets are reachable so the visitor can unlock. Robots noindex is
   // applied via per-route meta (see __root.tsx).
