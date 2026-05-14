@@ -27,15 +27,14 @@ export function Footer() {
             </div>
           </div>
           <Col title={t.footer.product} links={[
-            { to: "/features", label: t.nav.features },
-            { to: "/nutrition", label: t.nav.nutrition },
-            { to: "/training", label: t.nav.training },
-            { to: "/community", label: t.nav.community },
-            { to: "/rewards", label: t.nav.rewards },
+            { href: "/#features", label: t.nav.features },
+            { href: "/#nutrition", label: t.nav.nutrition },
+            { href: "/#training", label: t.nav.training },
+            { href: "/#community", label: t.nav.community },
+            { href: "/#rewards", label: t.nav.rewards },
           ]} />
           <Col title={t.footer.support} links={[
-            { to: "/faq", label: t.nav.faq },
-            { to: "/contact", label: t.nav.contact },
+            { href: "/#faq", label: t.nav.faq },
             { href: "mailto:support@fitcoapp.com", label: "support@fitcoapp.com" },
           ]} />
           <Col title={t.footer.legal} links={[

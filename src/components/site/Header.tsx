@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
@@ -19,13 +19,26 @@ export function Header() {
   }, []);
 
   const nav = [
-    { to: "/features", label: t.nav.features },
-    { to: "/nutrition", label: t.nav.nutrition },
-    { to: "/training", label: t.nav.training },
-    { to: "/community", label: t.nav.community },
-    { to: "/rewards", label: t.nav.rewards },
-    { to: "/faq", label: t.nav.faq },
+    { hash: "features", label: t.nav.features },
+    { hash: "nutrition", label: t.nav.nutrition },
+    { hash: "training", label: t.nav.training },
+    { hash: "community", label: t.nav.community },
+    { hash: "rewards", label: t.nav.rewards },
+    { hash: "faq", label: t.nav.faq },
   ] as const;
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const goTo = (hash: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setOpen(false);
+    if (location.pathname !== "/") {
+      navigate({ to: "/", hash });
+    } else {
+      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", `#${hash}`);
+    }
+  };
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? "glass-strong" : "bg-transparent"}`}>
@@ -33,11 +46,10 @@ export function Header() {
         <Logo />
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
           {nav.map((item) => (
-            <Link key={item.to} to={item.to}
-              className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "rounded-md px-3 py-2 text-sm text-foreground font-medium" }}>
+            <a key={item.hash} href={`/#${item.hash}`} onClick={goTo(item.hash)}
+              className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
               {item.label}
-            </Link>
+            </a>
           ))}
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
@@ -54,10 +66,10 @@ export function Header() {
         <div className="glass-strong border-t border-border lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
             {nav.map((item) => (
-              <Link key={item.to} to={item.to} onClick={() => setOpen(false)}
+              <a key={item.hash} href={`/#${item.hash}`} onClick={goTo(item.hash)}
                 className="rounded-md px-3 py-3 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground">
                 {item.label}
-              </Link>
+              </a>
             ))}
             <div className="mt-2 flex items-center justify-between gap-2">
               <LanguageSwitcher compact />

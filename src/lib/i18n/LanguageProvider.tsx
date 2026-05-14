@@ -24,7 +24,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     try { localStorage.setItem(KEY, l); } catch {}
   }, []);
 
-  const value = useMemo<Ctx>(() => ({ lang, setLang, t: dict[lang] }), [lang, setLang]);
+  const value = useMemo<Ctx>(() => ({ lang, setLang, t: dict[lang] as Dict }), [lang, setLang]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
