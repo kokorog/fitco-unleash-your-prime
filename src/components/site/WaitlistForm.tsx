@@ -2,8 +2,14 @@ import { useState } from "react";
 import { useLang } from "@/lib/i18n/LanguageProvider";
 import { Button } from "@/components/ui/button";
 import { Check, Loader2 } from "lucide-react";
+import { submitWaitlistSignup, type WaitlistGoal } from "@/lib/waitlist";
 
-const KEY = "fitco-waitlist-submissions";
+const GOAL_MAP: Record<"lose" | "maintain" | "muscle" | "endurance", WaitlistGoal> = {
+  lose: "LOSE_WEIGHT",
+  maintain: "MAINTAIN",
+  muscle: "GAIN_MUSCLE",
+  endurance: "ENDURANCE",
+};
 
 export function WaitlistForm({ compact = false }: { compact?: boolean }) {
   const { t, lang } = useLang();
@@ -22,13 +28,17 @@ export function WaitlistForm({ compact = false }: { compact?: boolean }) {
     if (!consent) { setError(t.waitlist.errorConsent); return; }
     setStatus("loading");
     try {
-      const payload = { name, email, goal, pref, ts: Date.now() };
-      const existing = JSON.parse(localStorage.getItem(KEY) || "[]");
-      existing.push(payload);
-      localStorage.setItem(KEY, JSON.stringify(existing));
-      await new Promise((r) => setTimeout(r, 500));
+      await submitWaitlistSignup({
+        email,
+        name: name || undefined,
+        goal: GOAL_MAP[goal],
+        language: pref.toUpperCase() as "BG" | "EN",
+        marketingConsent: consent,
+        privacyAccepted: consent,
+      });
       setStatus("success");
     } catch {
+      setError(t.waitlist.errorSubmit);
       setStatus("error");
     }
   }
@@ -38,6 +48,7 @@ export function WaitlistForm({ compact = false }: { compact?: boolean }) {
       <div className="rounded-3xl border border-primary/30 bg-primary/10 p-6 text-center">
         <div className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-primary text-primary-foreground"><Check className="h-5 w-5" /></div>
         <p className="mt-3 text-sm font-medium">{t.waitlist.success}</p>
+        <p className="mt-1 text-xs text-muted-foreground">{t.waitlist.successLong}</p>
       </div>
     );
   }

@@ -97,6 +97,8 @@ export const dict = {
       success: "You're on the list. We'll be in touch.",
       errorEmail: "Please enter a valid email address.",
       errorConsent: "Please accept the policy to continue.",
+      errorSubmit: "We couldn't save your signup right now. Please try again or contact support@fitcoapp.com.",
+      successLong: "You're on the FitCo waitlist. We'll email you when early access opens.",
     },
     footer: {
       tagline: "Track your nutrition, follow personalized workouts and stay consistent with a community.",
@@ -247,6 +249,8 @@ export const dict = {
       success: "Ти си в списъка. Ще се чуем скоро.",
       errorEmail: "Моля, въведи валиден имейл адрес.",
       errorConsent: "Моля, приеми политиката, за да продължиш.",
+      errorSubmit: "Не успяхме да запазим записването. Опитай пак или пиши на support@fitcoapp.com.",
+      successLong: "Ти си в списъка на FitCo. Ще ти пишем, когато ранният достъп отвори.",
     },
     footer: {
       tagline: "Следи храненето си, тренирай по персонален план и остани постоянен с общност.",
