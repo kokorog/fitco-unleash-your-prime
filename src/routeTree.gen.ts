@@ -9,15 +9,34 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrainingRouteImport } from './routes/training'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as RewardsRouteImport } from './routes/rewards'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as NutritionRouteImport } from './routes/nutrition'
 import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicAccessRouteImport } from './routes/api/public/access'
 
+const TrainingRoute = TrainingRouteImport.update({
+  id: '/training',
+  path: '/training',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RewardsRoute = RewardsRouteImport.update({
+  id: '/rewards',
+  path: '/rewards',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -36,6 +55,11 @@ const FeaturesRoute = FeaturesRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -63,20 +87,28 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
   '/features': typeof FeaturesRoute
   '/nutrition': typeof NutritionRoute
   '/privacy': typeof PrivacyRoute
+  '/rewards': typeof RewardsRoute
+  '/terms': typeof TermsRoute
+  '/training': typeof TrainingRoute
   '/api/public/access': typeof ApiPublicAccessRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
   '/features': typeof FeaturesRoute
   '/nutrition': typeof NutritionRoute
   '/privacy': typeof PrivacyRoute
+  '/rewards': typeof RewardsRoute
+  '/terms': typeof TermsRoute
+  '/training': typeof TrainingRoute
   '/api/public/access': typeof ApiPublicAccessRoute
 }
 export interface FileRoutesById {
@@ -84,10 +116,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
   '/features': typeof FeaturesRoute
   '/nutrition': typeof NutritionRoute
   '/privacy': typeof PrivacyRoute
+  '/rewards': typeof RewardsRoute
+  '/terms': typeof TermsRoute
+  '/training': typeof TrainingRoute
   '/api/public/access': typeof ApiPublicAccessRoute
 }
 export interface FileRouteTypes {
@@ -96,30 +132,42 @@ export interface FileRouteTypes {
     | '/'
     | '/community'
     | '/contact'
+    | '/cookies'
     | '/faq'
     | '/features'
     | '/nutrition'
     | '/privacy'
+    | '/rewards'
+    | '/terms'
+    | '/training'
     | '/api/public/access'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/community'
     | '/contact'
+    | '/cookies'
     | '/faq'
     | '/features'
     | '/nutrition'
     | '/privacy'
+    | '/rewards'
+    | '/terms'
+    | '/training'
     | '/api/public/access'
   id:
     | '__root__'
     | '/'
     | '/community'
     | '/contact'
+    | '/cookies'
     | '/faq'
     | '/features'
     | '/nutrition'
     | '/privacy'
+    | '/rewards'
+    | '/terms'
+    | '/training'
     | '/api/public/access'
   fileRoutesById: FileRoutesById
 }
@@ -127,15 +175,40 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
+  CookiesRoute: typeof CookiesRoute
   FaqRoute: typeof FaqRoute
   FeaturesRoute: typeof FeaturesRoute
   NutritionRoute: typeof NutritionRoute
   PrivacyRoute: typeof PrivacyRoute
+  RewardsRoute: typeof RewardsRoute
+  TermsRoute: typeof TermsRoute
+  TrainingRoute: typeof TrainingRoute
   ApiPublicAccessRoute: typeof ApiPublicAccessRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/training': {
+      id: '/training'
+      path: '/training'
+      fullPath: '/training'
+      preLoaderRoute: typeof TrainingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rewards': {
+      id: '/rewards'
+      path: '/rewards'
+      fullPath: '/rewards'
+      preLoaderRoute: typeof RewardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -162,6 +235,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -199,10 +279,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
+  CookiesRoute: CookiesRoute,
   FaqRoute: FaqRoute,
   FeaturesRoute: FeaturesRoute,
   NutritionRoute: NutritionRoute,
   PrivacyRoute: PrivacyRoute,
+  RewardsRoute: RewardsRoute,
+  TermsRoute: TermsRoute,
+  TrainingRoute: TrainingRoute,
   ApiPublicAccessRoute: ApiPublicAccessRoute,
 }
 export const routeTree = rootRouteImport
