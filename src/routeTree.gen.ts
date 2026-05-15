@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PasswordResetRouteImport } from './routes/password-reset'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicWaitlistRouteImport } from './routes/api/public/waitlist'
@@ -25,6 +26,11 @@ const TermsRoute = TermsRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PasswordResetRoute = PasswordResetRouteImport.update({
+  id: '/password-reset',
+  path: '/password-reset',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CookiesRoute = CookiesRouteImport.update({
@@ -56,6 +62,7 @@ const ApiPublicAccessRoute = ApiPublicAccessRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cookies': typeof CookiesRoute
+  '/password-reset': typeof PasswordResetRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/api/public/access': typeof ApiPublicAccessRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cookies': typeof CookiesRoute
+  '/password-reset': typeof PasswordResetRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/api/public/access': typeof ApiPublicAccessRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cookies': typeof CookiesRoute
+  '/password-reset': typeof PasswordResetRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/api/public/access': typeof ApiPublicAccessRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cookies'
+    | '/password-reset'
     | '/privacy'
     | '/terms'
     | '/api/public/access'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/cookies'
+    | '/password-reset'
     | '/privacy'
     | '/terms'
     | '/api/public/access'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/cookies'
+    | '/password-reset'
     | '/privacy'
     | '/terms'
     | '/api/public/access'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CookiesRoute: typeof CookiesRoute
+  PasswordResetRoute: typeof PasswordResetRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
   ApiPublicAccessRoute: typeof ApiPublicAccessRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/password-reset': {
+      id: '/password-reset'
+      path: '/password-reset'
+      fullPath: '/password-reset'
+      preLoaderRoute: typeof PasswordResetRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cookies': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CookiesRoute: CookiesRoute,
+  PasswordResetRoute: PasswordResetRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
   ApiPublicAccessRoute: ApiPublicAccessRoute,
