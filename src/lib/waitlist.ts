@@ -11,12 +11,9 @@ export type WaitlistInput = {
 };
 
 export async function submitWaitlistSignup(values: WaitlistInput) {
-  const apiBaseUrl =
-    (import.meta.env.VITE_FITCO_API_BASE_URL as string | undefined) || "https://api.fitcoapp.com/api/v1";
-
   const params = new URLSearchParams(window.location.search);
 
-  const response = await fetch(`${apiBaseUrl.replace(/\/$/, "")}/waitlist`, {
+  const response = await fetch("/api/public/waitlist", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
