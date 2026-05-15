@@ -21,17 +21,18 @@ function textValue(value: unknown, maxLength: number): string | undefined {
   return trimmed.length > 0 && trimmed.length <= maxLength ? trimmed : undefined;
 }
 
-function sameOrigin(request: Request): boolean {
+function allowedOrigin(request: Request): boolean {
   const origin = request.headers.get("origin");
   if (!origin) return true;
-  return new URL(origin).host === new URL(request.url).host;
+  const hostname = new URL(origin).hostname;
+  return hostname === "fitcoapp.com" || hostname === "www.fitcoapp.com" || hostname.endsWith(".lovableproject.com") || hostname.endsWith(".lovable.app");
 }
 
 export const Route = createFileRoute("/api/public/waitlist")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        if (!sameOrigin(request)) {
+        if (!allowedOrigin(request)) {
           return jsonResponse({ ok: false, error: "Forbidden" }, { status: 403 });
         }
 
