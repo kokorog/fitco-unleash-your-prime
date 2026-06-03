@@ -41,6 +41,7 @@ export function Footer() {
             { to: "/privacy", label: t.legal.privacy.title },
             { to: "/terms", label: t.legal.terms.title },
             { to: "/cookies", label: t.legal.cookiePolicy.title },
+            { to: "/gdpr", label: t.lang === "en" ? "GDPR Rights" : "GDPR права" },
           ]} />
         </div>
         <div className="mt-12 flex flex-col items-start justify-between gap-2 border-t border-border pt-8 text-xs text-muted-foreground sm:flex-row sm:items-center">
