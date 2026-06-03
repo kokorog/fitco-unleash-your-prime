@@ -3,7 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Apple, Dumbbell, Users, Camera, Trophy, Coins, Activity, BookOpen } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
 import { FeatureCard } from "@/components/site/FeatureCard";
-import { FAQAccordion } from "@/components/site/FAQAccordion";
+import { FAQSection } from "@/components/site/FAQSection";
+import { ReviewsSection } from "@/components/site/ReviewsSection";
 import { CTASection } from "@/components/site/CTASection";
 import { NutritionMockup, TrainingMockup, CommunityMockup } from "@/components/site/AppMockup";
 import { Reveal, Parallax } from "@/components/site/Reveal";
@@ -192,18 +193,11 @@ function HomePage() {
         </div>
       </section>
 
-      {/* 9. FAQ */}
-      <section id="faq" className="scroll-mt-24 border-t border-border bg-surface py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center">
-            <h2 className="text-3xl font-bold sm:text-4xl">{t.faq.title}</h2>
-            <p className="mt-3 text-base text-muted-foreground">{t.faq.sub}</p>
-          </Reveal>
-          <Reveal className="mt-10" delay={80}>
-            <FAQAccordion items={t.faq.items} />
-          </Reveal>
-        </div>
-      </section>
+      {/* 9. REVIEWS (only renders when API has published reviews) */}
+      <ReviewsSection />
+
+      {/* 10. FAQ (API-driven) */}
+      <FAQSection />
 
       {/* 10. FINAL CTA */}
       <CTASection />
