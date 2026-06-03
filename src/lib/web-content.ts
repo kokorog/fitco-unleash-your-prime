@@ -46,10 +46,10 @@ function extractList(payload: unknown): ContentItem[] {
 function extractItem(payload: unknown): ContentItem | null {
   if (!payload || typeof payload !== "object") return null;
   const obj = payload as Record<string, unknown>;
-  if ("id" in obj || "body" in obj || "title" in obj) return obj as ContentItem;
+  if ("id" in obj || "body" in obj || "title" in obj) return obj as unknown as ContentItem;
   for (const k of ["item", "data", "content"]) {
     const v = obj[k];
-    if (v && typeof v === "object") return v as ContentItem;
+    if (v && typeof v === "object") return v as unknown as ContentItem;
   }
   return null;
 }
