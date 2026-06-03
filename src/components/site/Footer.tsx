@@ -4,7 +4,7 @@ import { useLang } from "@/lib/i18n/LanguageProvider";
 import { Mail, Instagram, Youtube } from "lucide-react";
 
 export function Footer() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -41,6 +41,7 @@ export function Footer() {
             { to: "/privacy", label: t.legal.privacy.title },
             { to: "/terms", label: t.legal.terms.title },
             { to: "/cookies", label: t.legal.cookiePolicy.title },
+            { to: "/gdpr", label: lang === "en" ? "GDPR Rights" : "GDPR права" },
           ]} />
         </div>
         <div className="mt-12 flex flex-col items-start justify-between gap-2 border-t border-border pt-8 text-xs text-muted-foreground sm:flex-row sm:items-center">
