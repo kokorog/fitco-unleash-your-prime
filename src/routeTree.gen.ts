@@ -14,6 +14,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PasswordResetRouteImport } from './routes/password-reset'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicWebContentRouteImport } from './routes/api/public/web-content'
 import { Route as ApiPublicWaitlistRouteImport } from './routes/api/public/waitlist'
 import { Route as ApiPublicPasswordResetRouteImport } from './routes/api/public/password-reset'
 import { Route as ApiPublicAccessRouteImport } from './routes/api/public/access'
@@ -43,6 +44,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicWebContentRoute = ApiPublicWebContentRouteImport.update({
+  id: '/api/public/web-content',
+  path: '/api/public/web-content',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicWaitlistRoute = ApiPublicWaitlistRouteImport.update({
   id: '/api/public/waitlist',
   path: '/api/public/waitlist',
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/api/public/access': typeof ApiPublicAccessRoute
   '/api/public/password-reset': typeof ApiPublicPasswordResetRoute
   '/api/public/waitlist': typeof ApiPublicWaitlistRoute
+  '/api/public/web-content': typeof ApiPublicWebContentRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/api/public/access': typeof ApiPublicAccessRoute
   '/api/public/password-reset': typeof ApiPublicPasswordResetRoute
   '/api/public/waitlist': typeof ApiPublicWaitlistRoute
+  '/api/public/web-content': typeof ApiPublicWebContentRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/api/public/access': typeof ApiPublicAccessRoute
   '/api/public/password-reset': typeof ApiPublicPasswordResetRoute
   '/api/public/waitlist': typeof ApiPublicWaitlistRoute
+  '/api/public/web-content': typeof ApiPublicWebContentRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/api/public/access'
     | '/api/public/password-reset'
     | '/api/public/waitlist'
+    | '/api/public/web-content'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/api/public/access'
     | '/api/public/password-reset'
     | '/api/public/waitlist'
+    | '/api/public/web-content'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/api/public/access'
     | '/api/public/password-reset'
     | '/api/public/waitlist'
+    | '/api/public/web-content'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   ApiPublicAccessRoute: typeof ApiPublicAccessRoute
   ApiPublicPasswordResetRoute: typeof ApiPublicPasswordResetRoute
   ApiPublicWaitlistRoute: typeof ApiPublicWaitlistRoute
+  ApiPublicWebContentRoute: typeof ApiPublicWebContentRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -171,6 +184,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/web-content': {
+      id: '/api/public/web-content'
+      path: '/api/public/web-content'
+      fullPath: '/api/public/web-content'
+      preLoaderRoute: typeof ApiPublicWebContentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/waitlist': {
       id: '/api/public/waitlist'
       path: '/api/public/waitlist'
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicAccessRoute: ApiPublicAccessRoute,
   ApiPublicPasswordResetRoute: ApiPublicPasswordResetRoute,
   ApiPublicWaitlistRoute: ApiPublicWaitlistRoute,
+  ApiPublicWebContentRoute: ApiPublicWebContentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
