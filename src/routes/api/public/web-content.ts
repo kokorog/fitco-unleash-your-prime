@@ -40,6 +40,12 @@ export const Route = createFileRoute("/api/public/web-content")({
         try {
           const upstream = await fetch(upstreamUrl, { headers: { Accept: "application/json" } });
           const text = await upstream.text();
+          // Degrade upstream 5xx into a 200 empty payload so the site renders
+          // its empty state instead of bubbling a 502 to the client.
+          if (upstream.status >= 500) {
+            const fallback = key ? null : { items: [] };
+            return json(fallback, { status: 200 });
+          }
           return new Response(text, {
             status: upstream.status,
             headers: {
@@ -48,7 +54,8 @@ export const Route = createFileRoute("/api/public/web-content")({
             },
           });
         } catch (e) {
-          return json({ error: "Upstream unavailable" }, { status: 502 });
+          const fallback = key ? null : { items: [] };
+          return json(fallback, { status: 200 });
         }
       },
     },
