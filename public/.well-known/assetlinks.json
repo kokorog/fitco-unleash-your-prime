@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.fitco.app",
+      "sha256_cert_fingerprints": [
+        "4F:F2:16:82:2B:27:A7:F2:E3:B2:3D:A5:E7:EC:08:C9:97:A7:2D:7A:58:48:6C:37:22:A1:CA:18:6C:AD:0A:7C"
+      ]
+    }
+  }
+]
