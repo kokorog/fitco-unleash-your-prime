@@ -15,6 +15,7 @@ import { Route as PasswordResetRouteImport } from './routes/password-reset'
 import { Route as GdprRouteImport } from './routes/gdpr'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CommunityPostIdRouteImport } from './routes/community.$postId'
 import { Route as ApiPublicWebContentRouteImport } from './routes/api/public/web-content'
 import { Route as ApiPublicWaitlistRouteImport } from './routes/api/public/waitlist'
 import { Route as ApiPublicPasswordResetRouteImport } from './routes/api/public/password-reset'
@@ -50,6 +51,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CommunityPostIdRoute = CommunityPostIdRouteImport.update({
+  id: '/community/$postId',
+  path: '/community/$postId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicWebContentRoute = ApiPublicWebContentRouteImport.update({
   id: '/api/public/web-content',
   path: '/api/public/web-content',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/password-reset': typeof PasswordResetRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/community/$postId': typeof CommunityPostIdRoute
   '/api/public/access': typeof ApiPublicAccessRoute
   '/api/public/password-reset': typeof ApiPublicPasswordResetRoute
   '/api/public/waitlist': typeof ApiPublicWaitlistRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/password-reset': typeof PasswordResetRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/community/$postId': typeof CommunityPostIdRoute
   '/api/public/access': typeof ApiPublicAccessRoute
   '/api/public/password-reset': typeof ApiPublicPasswordResetRoute
   '/api/public/waitlist': typeof ApiPublicWaitlistRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/password-reset': typeof PasswordResetRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/community/$postId': typeof CommunityPostIdRoute
   '/api/public/access': typeof ApiPublicAccessRoute
   '/api/public/password-reset': typeof ApiPublicPasswordResetRoute
   '/api/public/waitlist': typeof ApiPublicWaitlistRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/password-reset'
     | '/privacy'
     | '/terms'
+    | '/community/$postId'
     | '/api/public/access'
     | '/api/public/password-reset'
     | '/api/public/waitlist'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/password-reset'
     | '/privacy'
     | '/terms'
+    | '/community/$postId'
     | '/api/public/access'
     | '/api/public/password-reset'
     | '/api/public/waitlist'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/password-reset'
     | '/privacy'
     | '/terms'
+    | '/community/$postId'
     | '/api/public/access'
     | '/api/public/password-reset'
     | '/api/public/waitlist'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   PasswordResetRoute: typeof PasswordResetRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
+  CommunityPostIdRoute: typeof CommunityPostIdRoute
   ApiPublicAccessRoute: typeof ApiPublicAccessRoute
   ApiPublicPasswordResetRoute: typeof ApiPublicPasswordResetRoute
   ApiPublicWaitlistRoute: typeof ApiPublicWaitlistRoute
@@ -204,6 +217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/community/$postId': {
+      id: '/community/$postId'
+      path: '/community/$postId'
+      fullPath: '/community/$postId'
+      preLoaderRoute: typeof CommunityPostIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/web-content': {
       id: '/api/public/web-content'
       path: '/api/public/web-content'
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   PasswordResetRoute: PasswordResetRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
+  CommunityPostIdRoute: CommunityPostIdRoute,
   ApiPublicAccessRoute: ApiPublicAccessRoute,
   ApiPublicPasswordResetRoute: ApiPublicPasswordResetRoute,
   ApiPublicWaitlistRoute: ApiPublicWaitlistRoute,
