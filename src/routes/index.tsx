@@ -20,14 +20,16 @@ import {
   WalletCards,
 } from "lucide-react";
 import heroAthlete from "@/assets/hero-athlete.jpg";
+import achievementsScreen from "@/assets/screens/achievements-clean.png";
+import badgesScreen from "@/assets/screens/badges-clean.png";
 import chatsScreen from "@/assets/screens/chats.png";
 import communityCleanScreen from "@/assets/screens/community-clean.png";
 import nutritionCleanScreen from "@/assets/screens/nutrition-clean.png";
-import planScreen from "@/assets/screens/plan.png";
 import profileScreen from "@/assets/screens/profile.png";
-import progressScreen from "@/assets/screens/progress.png";
+import progressCleanScreen from "@/assets/screens/progress-clean.png";
 import routesLiveScreen from "@/assets/screens/routes-live-clean.png";
 import todayCleanScreen from "@/assets/screens/today-clean.png";
+import trainingLibraryScreen from "@/assets/screens/training-library-clean.png";
 import { PageShell } from "@/components/site/PageShell";
 import { PhoneFrame } from "@/components/site/PhoneFrame";
 import { Reveal, Parallax } from "@/components/site/Reveal";
@@ -85,7 +87,7 @@ const copy = {
     screenshotEyebrow: "Inside FitCo",
     screenshotTitle: "The app is the hero.",
     screenshotBody:
-      "No generic dashboard art. These are real FitCo screens: daily rhythm, nutrition, progress, community, chats and profile.",
+      "No generic dashboard art. These are real FitCo screens: daily rhythm, nutrition, training, progress, community, achievements and profile.",
     screens: [
       {
         title: "Daily rhythm",
@@ -100,9 +102,15 @@ const copy = {
         alt: "FitCo nutrition screen",
       },
       {
+        title: "Training",
+        body: "A searchable exercise library with video previews.",
+        src: trainingLibraryScreen,
+        alt: "FitCo exercise library screen",
+      },
+      {
         title: "Progress",
         body: "Trends, streaks and a cleaner picture of consistency.",
-        src: progressScreen,
+        src: progressCleanScreen,
         alt: "FitCo progress screen",
       },
       {
@@ -122,6 +130,18 @@ const copy = {
         body: "Direct and group messages around real fitness goals.",
         src: chatsScreen,
         alt: "FitCo chats screen",
+      },
+      {
+        title: "FitCo Club",
+        body: "Achievements, FitCoins and profile perks in one place.",
+        src: achievementsScreen,
+        alt: "FitCo achievements screen",
+      },
+      {
+        title: "Badges",
+        body: "Showcase earned badges and see what comes next.",
+        src: badgesScreen,
+        alt: "FitCo badges screen",
       },
       {
         title: "Profile",
@@ -200,7 +220,7 @@ const copy = {
       {
         title: "Прогрес",
         body: "Трендове, поредици и по-ясна картина на постоянството.",
-        src: progressScreen,
+        src: progressCleanScreen,
         alt: "FitCo прогрес екран",
       },
       {
@@ -449,7 +469,7 @@ function HomePage() {
               {c.finalStrip}
             </div>
           </Reveal>
-          <div className="mt-12 flex snap-x gap-6 overflow-x-auto pb-6 [scrollbar-width:thin]">
+          <div className="no-scrollbar mt-12 flex snap-x gap-6 overflow-x-auto pb-6">
             {c.screens.map((screen, index) => (
               <Reveal
                 key={screen.title}
@@ -525,7 +545,7 @@ function HomePage() {
         title={t.training.title}
         sub={t.training.sub}
         bullets={t.training.bullets}
-        screen={planScreen}
+        screen={trainingLibraryScreen}
         screenAlt="FitCo workout plan screen"
         Icon={Dumbbell}
         reverse
@@ -583,7 +603,7 @@ function HomePage() {
               <div className="relative rounded-[2.5rem] bg-ink p-6 text-ink-foreground shadow-elevated">
                 <div className="grid gap-4 sm:grid-cols-[0.9fr_1.1fr] sm:items-center">
                   <PhoneFrame
-                    src={progressScreen}
+                    src={achievementsScreen}
                     alt="FitCo progress and rewards screen"
                     className="w-[245px]"
                   />
