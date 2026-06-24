@@ -4,11 +4,13 @@ export function PhoneFrame({
   src,
   alt,
   className = "",
+  loading = "lazy",
   children,
 }: {
   src?: string;
   alt?: string;
   className?: string;
+  loading?: "lazy" | "eager";
   children?: ReactNode;
 }) {
   return (
@@ -16,7 +18,14 @@ export function PhoneFrame({
       <div className="relative aspect-[9/19.5] rounded-[2.4rem] border border-border bg-black p-2 shadow-elevated">
         <div className="absolute left-1/2 top-2 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-black" />
         <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-background">
-          {src && <img src={src} alt={alt ?? ""} className="h-full w-full object-cover" loading="lazy" />}
+          {src && (
+            <img
+              src={src}
+              alt={alt ?? ""}
+              className="h-full w-full object-cover"
+              loading={loading}
+            />
+          )}
           {children}
         </div>
       </div>
