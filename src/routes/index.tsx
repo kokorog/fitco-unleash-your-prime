@@ -19,7 +19,7 @@ import {
   Utensils,
   WalletCards,
 } from "lucide-react";
-import heroAthlete from "@/assets/hero-athlete.jpg";
+import heroBotanical from "@/assets/hero-botanical.jpg";
 import achievementsScreen from "@/assets/screens/achievements-clean.png";
 import badgesScreen from "@/assets/screens/badges-clean.png";
 import chatsScreen from "@/assets/screens/chats.png";
@@ -302,26 +302,26 @@ function HomePage() {
 
   return (
     <PageShell>
-      <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden bg-ink text-ink-foreground">
+      <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden bg-background text-foreground">
         <img
-          src={heroAthlete}
+          src={heroBotanical}
           alt=""
           aria-hidden
-          className="absolute inset-0 h-full w-full object-cover opacity-28"
+          className="absolute inset-0 h-full w-full object-cover object-center"
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(90deg,oklch(0.16_0.025_165/0.96),oklch(0.18_0.025_165/0.80)_48%,oklch(0.16_0.025_165/0.45))]"
+          className="absolute inset-0 bg-[linear-gradient(90deg,oklch(0.97_0.014_92/0.96),oklch(0.97_0.014_92/0.84)_44%,oklch(0.97_0.014_92/0.34)_100%)]"
         />
         <div
           aria-hidden
-          className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent"
+          className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-background to-transparent"
         />
         <div
           aria-hidden
           className="absolute left-1/2 top-24 h-96 w-96 rounded-full bg-primary/20 blur-3xl"
         />
-        <div className="pointer-events-none absolute -bottom-28 -right-20 z-0 block opacity-35 sm:-right-10 lg:hidden">
+        <div className="pointer-events-none absolute -bottom-28 -right-20 z-0 block opacity-25 sm:-right-10 lg:hidden">
           <PhoneFrame
             src={todayCleanScreen}
             alt=""
@@ -333,9 +333,7 @@ function HomePage() {
         <div className="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl items-center gap-12 px-4 pb-12 pt-24 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:pt-28">
           <div className="max-w-3xl">
             <Reveal y={16}>
-              <span className="pill border border-white/10 bg-white/10 text-ink-foreground">
-                {c.heroKicker}
-              </span>
+              <span className="pill">{c.heroKicker}</span>
             </Reveal>
             <Reveal delay={80} y={18}>
               <h1 className="mt-5 font-display text-6xl font-bold leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl">
@@ -343,7 +341,7 @@ function HomePage() {
               </h1>
             </Reveal>
             <Reveal delay={140} y={18}>
-              <p className="mt-6 max-w-2xl text-xl leading-8 text-ink-foreground/78 sm:text-2xl sm:leading-9">
+              <p className="mt-6 max-w-2xl text-xl leading-8 text-foreground/78 sm:text-2xl sm:leading-9">
                 {c.heroLine}
               </p>
             </Reveal>
@@ -358,7 +356,7 @@ function HomePage() {
                 </a>
                 <a
                   href="#screens"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/10 px-6 text-sm font-bold text-ink-foreground backdrop-blur transition-all hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-foreground/15 bg-background/55 px-6 text-sm font-bold text-foreground shadow-soft backdrop-blur transition-all hover:bg-background/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   {c.seeScreens}
                 </a>
@@ -369,10 +367,10 @@ function HomePage() {
                 {c.stats.map((item) => (
                   <div
                     key={item.label}
-                    className="rounded-3xl border border-white/10 bg-white/10 p-4 backdrop-blur"
+                    className="rounded-3xl border border-foreground/10 bg-background/62 p-4 shadow-soft backdrop-blur"
                   >
                     <p className="font-display text-2xl font-bold">{item.value}</p>
-                    <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-ink-foreground/55">
+                    <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                       {item.label}
                     </p>
                   </div>
@@ -380,7 +378,7 @@ function HomePage() {
               </div>
             </Reveal>
             <Reveal delay={340} y={18}>
-              <p className="mt-5 flex max-w-xl items-center gap-2 text-sm text-ink-foreground/60">
+              <p className="mt-5 flex max-w-xl items-center gap-2 text-sm font-medium text-muted-foreground">
                 <ShieldCheck className="h-4 w-4 text-primary" />
                 {c.heroTrust}
               </p>
@@ -429,14 +427,14 @@ function HomePage() {
             </Parallax>
             <Reveal
               delay={520}
-              className="absolute bottom-4 left-1/2 z-30 w-[min(92%,520px)] -translate-x-1/2 rounded-[2rem] border border-white/10 bg-ink/80 p-4 shadow-elevated backdrop-blur-xl"
+              className="absolute bottom-4 left-1/2 z-30 w-[min(92%,520px)] -translate-x-1/2 rounded-[2rem] border border-foreground/10 bg-background/82 p-4 text-foreground shadow-elevated backdrop-blur-xl"
             >
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
                     {c.productTour}
                   </p>
-                  <p className="mt-1 text-sm text-ink-foreground/70">{c.availableSoon}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{c.availableSoon}</p>
                 </div>
                 <a
                   href="#features"
@@ -455,40 +453,34 @@ function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
             <div>
-              <span className="pill border border-white/10 bg-white/10 text-ink-foreground">
-                {c.screenshotEyebrow}
-              </span>
+              <span className="pill-dark">{c.screenshotEyebrow}</span>
               <h2 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
                 {c.screenshotTitle}
               </h2>
-              <p className="mt-4 max-w-xl text-base leading-7 text-ink-foreground/66">
+              <p className="mt-4 max-w-xl text-base leading-7 text-ink-foreground/78">
                 {c.screenshotBody}
               </p>
             </div>
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-4 text-sm text-ink-foreground/64">
+            <div className="rounded-[2rem] border border-white/10 bg-white/[0.07] p-4 text-sm font-medium leading-6 text-ink-foreground/78 shadow-soft">
               {c.finalStrip}
             </div>
           </Reveal>
-          <div className="no-scrollbar mt-12 flex snap-x gap-6 overflow-x-auto pb-6">
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {c.screens.map((screen, index) => (
-              <Reveal
-                key={screen.title}
-                delay={index * 55}
-                className="min-w-[260px] snap-center sm:min-w-[300px]"
-              >
+              <Reveal key={screen.title} delay={index * 55} className="min-w-0">
                 <motion.article
                   whileHover={{ y: -6 }}
                   transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                  className="rounded-[2rem] border border-white/10 bg-white/[0.055] p-4 shadow-elevated"
+                  className="h-full rounded-[2rem] border border-white/10 bg-white/[0.065] p-4 shadow-elevated"
                 >
                   <PhoneFrame
                     src={screen.src}
                     alt={screen.alt}
-                    className="w-[230px] sm:w-[255px]"
+                    className="mx-auto w-full max-w-[255px]"
                   />
                   <div className="px-2 pb-1 pt-5">
                     <h3 className="text-xl font-bold">{screen.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-ink-foreground/62">{screen.body}</p>
+                    <p className="mt-2 text-sm leading-6 text-ink-foreground/74">{screen.body}</p>
                   </div>
                 </motion.article>
               </Reveal>
@@ -683,11 +675,7 @@ function ProductSection({
 }) {
   const content = (
     <Reveal>
-      <span
-        className={`pill ${dark ? "border border-white/10 bg-white/10 text-ink-foreground" : ""}`}
-      >
-        {eyebrow}
-      </span>
+      <span className={dark ? "pill-dark" : "pill"}>{eyebrow}</span>
       <div className="mt-5 flex items-start gap-4">
         <div
           className={`mt-1 grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${dark ? "bg-white/10 text-primary" : "bg-primary/15 text-primary"}`}
@@ -697,7 +685,7 @@ function ProductSection({
         <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">{title}</h2>
       </div>
       <p
-        className={`mt-5 max-w-2xl text-lg leading-8 ${dark ? "text-ink-foreground/68" : "text-muted-foreground"}`}
+        className={`mt-5 max-w-2xl text-lg leading-8 ${dark ? "text-ink-foreground/78" : "text-muted-foreground"}`}
       >
         {sub}
       </p>

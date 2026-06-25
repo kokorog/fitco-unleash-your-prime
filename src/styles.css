@@ -140,10 +140,32 @@
     border-radius: var(--radius-2xl);
   }
   .pill {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.375rem 0.75rem; border-radius: 9999px;
-    background: var(--primary-soft); color: oklch(0.34 0.07 162);
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid oklch(0.34 0.07 162 / 0.18);
+    background: oklch(0.78 0.135 162 / 0.16);
+    color: oklch(0.25 0.06 162);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .pill-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid oklch(0.78 0.135 162 / 0.3);
+    background: oklch(0.78 0.135 162 / 0.14);
+    color: oklch(0.86 0.12 162);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
   .gradient-text {
     background: var(--gradient-primary);
