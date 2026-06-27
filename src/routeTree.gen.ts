@@ -12,13 +12,20 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PasswordResetRouteImport } from './routes/password-reset'
+import { Route as GdprRightsRouteImport } from './routes/gdpr-rights'
 import { Route as GdprRouteImport } from './routes/gdpr'
+import { Route as DeleteDataRouteImport } from './routes/delete-data'
+import { Route as DeleteAccountRouteImport } from './routes/delete-account'
 import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CommunityPostIdRouteImport } from './routes/community.$postId'
 import { Route as ApiPublicWebContentRouteImport } from './routes/api/public/web-content'
 import { Route as ApiPublicWaitlistRouteImport } from './routes/api/public/waitlist'
 import { Route as ApiPublicPasswordResetRouteImport } from './routes/api/public/password-reset'
+import { Route as ApiPublicAccountDeleteLoginRouteImport } from './routes/api/public/account-delete-login'
+import { Route as ApiPublicAccountDelete2faRouteImport } from './routes/api/public/account-delete-2fa'
+import { Route as ApiPublicAccountDeleteRouteImport } from './routes/api/public/account-delete'
 import { Route as ApiPublicAccessRouteImport } from './routes/api/public/access'
 
 const TermsRoute = TermsRouteImport.update({
@@ -36,14 +43,34 @@ const PasswordResetRoute = PasswordResetRouteImport.update({
   path: '/password-reset',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GdprRightsRoute = GdprRightsRouteImport.update({
+  id: '/gdpr-rights',
+  path: '/gdpr-rights',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GdprRoute = GdprRouteImport.update({
   id: '/gdpr',
   path: '/gdpr',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DeleteDataRoute = DeleteDataRouteImport.update({
+  id: '/delete-data',
+  path: '/delete-data',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeleteAccountRoute = DeleteAccountRouteImport.update({
+  id: '/delete-account',
+  path: '/delete-account',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CookiesRoute = CookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiePolicyRoute = CookiePolicyRouteImport.update({
+  id: '/cookie-policy',
+  path: '/cookie-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -71,6 +98,23 @@ const ApiPublicPasswordResetRoute = ApiPublicPasswordResetRouteImport.update({
   path: '/api/public/password-reset',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAccountDeleteLoginRoute =
+  ApiPublicAccountDeleteLoginRouteImport.update({
+    id: '/api/public/account-delete-login',
+    path: '/api/public/account-delete-login',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicAccountDelete2faRoute =
+  ApiPublicAccountDelete2faRouteImport.update({
+    id: '/api/public/account-delete-2fa',
+    path: '/api/public/account-delete-2fa',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicAccountDeleteRoute = ApiPublicAccountDeleteRouteImport.update({
+  id: '/api/public/account-delete',
+  path: '/api/public/account-delete',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicAccessRoute = ApiPublicAccessRouteImport.update({
   id: '/api/public/access',
   path: '/api/public/access',
@@ -79,26 +123,40 @@ const ApiPublicAccessRoute = ApiPublicAccessRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/cookies': typeof CookiesRoute
+  '/delete-account': typeof DeleteAccountRoute
+  '/delete-data': typeof DeleteDataRoute
   '/gdpr': typeof GdprRoute
+  '/gdpr-rights': typeof GdprRightsRoute
   '/password-reset': typeof PasswordResetRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/community/$postId': typeof CommunityPostIdRoute
   '/api/public/access': typeof ApiPublicAccessRoute
+  '/api/public/account-delete': typeof ApiPublicAccountDeleteRoute
+  '/api/public/account-delete-2fa': typeof ApiPublicAccountDelete2faRoute
+  '/api/public/account-delete-login': typeof ApiPublicAccountDeleteLoginRoute
   '/api/public/password-reset': typeof ApiPublicPasswordResetRoute
   '/api/public/waitlist': typeof ApiPublicWaitlistRoute
   '/api/public/web-content': typeof ApiPublicWebContentRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/cookies': typeof CookiesRoute
+  '/delete-account': typeof DeleteAccountRoute
+  '/delete-data': typeof DeleteDataRoute
   '/gdpr': typeof GdprRoute
+  '/gdpr-rights': typeof GdprRightsRoute
   '/password-reset': typeof PasswordResetRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/community/$postId': typeof CommunityPostIdRoute
   '/api/public/access': typeof ApiPublicAccessRoute
+  '/api/public/account-delete': typeof ApiPublicAccountDeleteRoute
+  '/api/public/account-delete-2fa': typeof ApiPublicAccountDelete2faRoute
+  '/api/public/account-delete-login': typeof ApiPublicAccountDeleteLoginRoute
   '/api/public/password-reset': typeof ApiPublicPasswordResetRoute
   '/api/public/waitlist': typeof ApiPublicWaitlistRoute
   '/api/public/web-content': typeof ApiPublicWebContentRoute
@@ -106,13 +164,20 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/cookies': typeof CookiesRoute
+  '/delete-account': typeof DeleteAccountRoute
+  '/delete-data': typeof DeleteDataRoute
   '/gdpr': typeof GdprRoute
+  '/gdpr-rights': typeof GdprRightsRoute
   '/password-reset': typeof PasswordResetRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/community/$postId': typeof CommunityPostIdRoute
   '/api/public/access': typeof ApiPublicAccessRoute
+  '/api/public/account-delete': typeof ApiPublicAccountDeleteRoute
+  '/api/public/account-delete-2fa': typeof ApiPublicAccountDelete2faRoute
+  '/api/public/account-delete-login': typeof ApiPublicAccountDeleteLoginRoute
   '/api/public/password-reset': typeof ApiPublicPasswordResetRoute
   '/api/public/waitlist': typeof ApiPublicWaitlistRoute
   '/api/public/web-content': typeof ApiPublicWebContentRoute
@@ -121,39 +186,60 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cookie-policy'
     | '/cookies'
+    | '/delete-account'
+    | '/delete-data'
     | '/gdpr'
+    | '/gdpr-rights'
     | '/password-reset'
     | '/privacy'
     | '/terms'
     | '/community/$postId'
     | '/api/public/access'
+    | '/api/public/account-delete'
+    | '/api/public/account-delete-2fa'
+    | '/api/public/account-delete-login'
     | '/api/public/password-reset'
     | '/api/public/waitlist'
     | '/api/public/web-content'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/cookie-policy'
     | '/cookies'
+    | '/delete-account'
+    | '/delete-data'
     | '/gdpr'
+    | '/gdpr-rights'
     | '/password-reset'
     | '/privacy'
     | '/terms'
     | '/community/$postId'
     | '/api/public/access'
+    | '/api/public/account-delete'
+    | '/api/public/account-delete-2fa'
+    | '/api/public/account-delete-login'
     | '/api/public/password-reset'
     | '/api/public/waitlist'
     | '/api/public/web-content'
   id:
     | '__root__'
     | '/'
+    | '/cookie-policy'
     | '/cookies'
+    | '/delete-account'
+    | '/delete-data'
     | '/gdpr'
+    | '/gdpr-rights'
     | '/password-reset'
     | '/privacy'
     | '/terms'
     | '/community/$postId'
     | '/api/public/access'
+    | '/api/public/account-delete'
+    | '/api/public/account-delete-2fa'
+    | '/api/public/account-delete-login'
     | '/api/public/password-reset'
     | '/api/public/waitlist'
     | '/api/public/web-content'
@@ -161,13 +247,20 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CookiePolicyRoute: typeof CookiePolicyRoute
   CookiesRoute: typeof CookiesRoute
+  DeleteAccountRoute: typeof DeleteAccountRoute
+  DeleteDataRoute: typeof DeleteDataRoute
   GdprRoute: typeof GdprRoute
+  GdprRightsRoute: typeof GdprRightsRoute
   PasswordResetRoute: typeof PasswordResetRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
   CommunityPostIdRoute: typeof CommunityPostIdRoute
   ApiPublicAccessRoute: typeof ApiPublicAccessRoute
+  ApiPublicAccountDeleteRoute: typeof ApiPublicAccountDeleteRoute
+  ApiPublicAccountDelete2faRoute: typeof ApiPublicAccountDelete2faRoute
+  ApiPublicAccountDeleteLoginRoute: typeof ApiPublicAccountDeleteLoginRoute
   ApiPublicPasswordResetRoute: typeof ApiPublicPasswordResetRoute
   ApiPublicWaitlistRoute: typeof ApiPublicWaitlistRoute
   ApiPublicWebContentRoute: typeof ApiPublicWebContentRoute
@@ -196,6 +289,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PasswordResetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gdpr-rights': {
+      id: '/gdpr-rights'
+      path: '/gdpr-rights'
+      fullPath: '/gdpr-rights'
+      preLoaderRoute: typeof GdprRightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gdpr': {
       id: '/gdpr'
       path: '/gdpr'
@@ -203,11 +303,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GdprRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/delete-data': {
+      id: '/delete-data'
+      path: '/delete-data'
+      fullPath: '/delete-data'
+      preLoaderRoute: typeof DeleteDataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/delete-account': {
+      id: '/delete-account'
+      path: '/delete-account'
+      fullPath: '/delete-account'
+      preLoaderRoute: typeof DeleteAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cookies': {
       id: '/cookies'
       path: '/cookies'
       fullPath: '/cookies'
       preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookie-policy': {
+      id: '/cookie-policy'
+      path: '/cookie-policy'
+      fullPath: '/cookie-policy'
+      preLoaderRoute: typeof CookiePolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -245,6 +366,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPasswordResetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/account-delete-login': {
+      id: '/api/public/account-delete-login'
+      path: '/api/public/account-delete-login'
+      fullPath: '/api/public/account-delete-login'
+      preLoaderRoute: typeof ApiPublicAccountDeleteLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/account-delete-2fa': {
+      id: '/api/public/account-delete-2fa'
+      path: '/api/public/account-delete-2fa'
+      fullPath: '/api/public/account-delete-2fa'
+      preLoaderRoute: typeof ApiPublicAccountDelete2faRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/account-delete': {
+      id: '/api/public/account-delete'
+      path: '/api/public/account-delete'
+      fullPath: '/api/public/account-delete'
+      preLoaderRoute: typeof ApiPublicAccountDeleteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/access': {
       id: '/api/public/access'
       path: '/api/public/access'
@@ -257,13 +399,20 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CookiePolicyRoute: CookiePolicyRoute,
   CookiesRoute: CookiesRoute,
+  DeleteAccountRoute: DeleteAccountRoute,
+  DeleteDataRoute: DeleteDataRoute,
   GdprRoute: GdprRoute,
+  GdprRightsRoute: GdprRightsRoute,
   PasswordResetRoute: PasswordResetRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
   CommunityPostIdRoute: CommunityPostIdRoute,
   ApiPublicAccessRoute: ApiPublicAccessRoute,
+  ApiPublicAccountDeleteRoute: ApiPublicAccountDeleteRoute,
+  ApiPublicAccountDelete2faRoute: ApiPublicAccountDelete2faRoute,
+  ApiPublicAccountDeleteLoginRoute: ApiPublicAccountDeleteLoginRoute,
   ApiPublicPasswordResetRoute: ApiPublicPasswordResetRoute,
   ApiPublicWaitlistRoute: ApiPublicWaitlistRoute,
   ApiPublicWebContentRoute: ApiPublicWebContentRoute,

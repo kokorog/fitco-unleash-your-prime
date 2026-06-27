@@ -1,10 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { Logo } from "./Logo";
+import { Instagram, Mail, Youtube } from "lucide-react";
+
 import { useLang } from "@/lib/i18n/LanguageProvider";
-import { Mail, Instagram, Youtube } from "lucide-react";
+import { Logo } from "./Logo";
 
 export function Footer() {
   const { t, lang } = useLang();
+
   return (
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -19,31 +21,49 @@ export function Footer() {
                 { href: "#", Icon: Instagram, label: "Instagram" },
                 { href: "#", Icon: Youtube, label: "YouTube" },
               ].map(({ href, Icon, label }) => (
-                <a key={label} href={href} aria-label={label}
-                  className="grid h-9 w-9 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary">
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="grid h-9 w-9 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                >
                   <Icon className="h-4 w-4" />
                 </a>
               ))}
             </div>
           </div>
-          <Col title={t.footer.product} links={[
-            { href: "/#features", label: t.nav.features },
-            { href: "/#nutrition", label: t.nav.nutrition },
-            { href: "/#training", label: t.nav.training },
-            { href: "/#community", label: t.nav.community },
-            { href: "/#rewards", label: t.nav.rewards },
-          ]} />
-          <Col title={t.footer.support} links={[
-            { href: "/#faq", label: t.nav.faq },
-            { href: "mailto:support@fitcoapp.com", label: "support@fitcoapp.com" },
-          ]} />
-          <Col title={t.footer.legal} links={[
-            { to: "/privacy", label: t.legal.privacy.title },
-            { to: "/terms", label: t.legal.terms.title },
-            { to: "/cookies", label: t.legal.cookiePolicy.title },
-            { to: "/gdpr", label: lang === "en" ? "GDPR Rights" : "GDPR права" },
-          ]} />
+
+          <Col
+            title={t.footer.product}
+            links={[
+              { href: "/#features", label: t.nav.features },
+              { href: "/#nutrition", label: t.nav.nutrition },
+              { href: "/#training", label: t.nav.training },
+              { href: "/#community", label: t.nav.community },
+              { href: "/#rewards", label: t.nav.rewards },
+            ]}
+          />
+
+          <Col
+            title={t.footer.support}
+            links={[
+              { href: "/#faq", label: t.nav.faq },
+              { href: "mailto:support@fitcoapp.com", label: "support@fitcoapp.com" },
+            ]}
+          />
+
+          <Col
+            title={t.footer.legal}
+            links={[
+              { to: "/privacy", label: t.legal.privacy.title },
+              { to: "/terms", label: t.legal.terms.title },
+              { to: "/cookies", label: t.legal.cookiePolicy.title },
+              { to: "/gdpr", label: lang === "en" ? "GDPR Rights" : "GDPR rights" },
+              { to: "/delete-account", label: "Delete account" },
+            ]}
+          />
         </div>
+
         <div className="mt-12 flex flex-col items-start justify-between gap-2 border-t border-border pt-8 text-xs text-muted-foreground sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} FitCo. {t.footer.rights}</p>
           <p>support@fitcoapp.com · fitcoapp.com</p>
@@ -58,12 +78,16 @@ function Col({ title, links }: { title: string; links: Array<{ to?: string; href
     <div>
       <h4 className="text-sm font-semibold text-foreground">{title}</h4>
       <ul className="mt-4 space-y-3">
-        {links.map((l) => (
-          <li key={l.label}>
-            {l.to ? (
-              <Link to={l.to} className="text-sm text-muted-foreground transition-colors hover:text-primary">{l.label}</Link>
+        {links.map((link) => (
+          <li key={link.label}>
+            {link.to ? (
+              <Link to={link.to} className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                {link.label}
+              </Link>
             ) : (
-              <a href={l.href} className="text-sm text-muted-foreground transition-colors hover:text-primary">{l.label}</a>
+              <a href={link.href} className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                {link.label}
+              </a>
             )}
           </li>
         ))}

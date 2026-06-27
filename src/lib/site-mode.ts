@@ -63,8 +63,26 @@ export function cookieDomainForHost(hostname: string): string | undefined {
 const PRIVATE_UNAUTH_PATHS = new Set<string>([
   "/access",
   "/api/public/access",
+  "/api/public/account-delete",
+  "/api/public/account-delete-2fa",
+  "/api/public/account-delete-login",
   "/robots.txt",
   "/favicon.ico",
+]);
+
+const PUBLIC_PAGE_PATHS = new Set<string>([
+  "/privacy",
+  "/terms",
+  "/cookies",
+  "/gdpr",
+  "/gdpr-rights",
+  "/cookie-policy",
+  "/delete-account",
+  "/delete-data",
+  "/api/public/web-content",
+  "/api/public/account-delete",
+  "/api/public/account-delete-2fa",
+  "/api/public/account-delete-login",
 ]);
 
 const ASSET_PREFIXES = [
@@ -87,5 +105,6 @@ export function isPrivateUnauthPath(pathname: string): boolean {
 // returns the Coming Soon HTML.
 export function isPublicPassthroughPath(pathname: string): boolean {
   if (pathname === "/robots.txt" || pathname === "/favicon.ico") return true;
+  if (PUBLIC_PAGE_PATHS.has(pathname)) return true;
   return ASSET_PREFIXES.some((p) => pathname.startsWith(p));
 }
